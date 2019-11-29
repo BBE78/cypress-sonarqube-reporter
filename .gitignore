@@ -59,3 +59,13 @@ typings/
 
 # next.js build output
 .next
+
+# SonarQube stuff
+.scannerwork
+
+# Generated stuff
+dist
+
+# Cypress generated stuff
+cypress/screenshots
+cypress/videos

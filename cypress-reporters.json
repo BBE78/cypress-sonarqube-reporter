@@ -1,0 +1,8 @@
+{
+    "reporterEnabled": "./index.js, mochawesome",
+    "mochawesomeReporterOptions": {
+	},
+	"indexJsReporterOptions": {
+        "overwrite": true
+	}
+}
