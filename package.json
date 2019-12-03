@@ -1,12 +1,13 @@
 {
     "name": "cypress-sonarqube-reporter",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "A SonarQube XML reporter for Cypress",
     "main": "index.js",
     "scripts": {
-        "lint": "eslint --format json --output-file dist/eslint-report.json index.js",
-        "sonar": "node sonar-project.js",
-        "test": "npx cypress run"
+        "clean": "rimraf dist",
+        "test": "npm run clean && jest --forceExit test/specs/",
+        "lint": "eslint --format json --output-file dist/eslint-report.json src/** test/specs/**",
+        "sonar": "node sonar-project.js"
     },
     "repository": {
         "type": "git",
@@ -34,14 +35,39 @@
         "cypress": "^3.7.0",
         "cypress-multi-reporters": "^1.2.3",
         "eslint": "^6.7.1",
-        "mochawesome": "^4.1.0"
+        "eslint-plugin-cypress": "^2.7.0",
+        "eslint-plugin-jest": "^23.1.1",
+        "fast-xml-parser": "^3.15.0",
+        "jest": "^24.9.0",
+        "jest-extended": "^0.11.2",
+        "mochawesome": "^4.1.0",
+        "rimraf": "^3.0.0"
+    },
+    "jest": {
+        "setupFilesAfterEnv": [
+            "jest-extended"
+        ],
+        "testMatch": [
+            "test/specs/**/*.[jt]s?(x)",
+            "**/?(*.)+(spec).[jt]s?(x)"
+        ]
     },
     "eslintConfig": {
-        "extends": "eslint:recommended",
+        "extends": [
+            "eslint:recommended",
+            "plugin:cypress/recommended",
+            "plugin:jest/recommended"
+        ],
+        "plugins": [
+            "cypress",
+            "jest"
+        ],
         "parserOptions": {
             "ecmaVersion": 6
         },
         "env": {
+            "cypress/globals": true,
+            "jest/globals": true,
             "node": true
         }
     }

@@ -1,0 +1,11 @@
+{
+    "reporterEnabled": "../index.js, mochawesome",
+	"indexJsReporterOptions": {
+        "outputDir": "dist/multi"
+	},
+    "mochawesomeReporterOptions": {
+        "reportFilename": "dist/multi/mochawesome",
+        "html": false,
+        "json": true
+	}
+}

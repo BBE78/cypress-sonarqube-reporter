@@ -1,5 +1,5 @@
 
-const specTitle = require("../../specTitle");
+const specTitle = require("../../../specTitle");
 
 describe(specTitle("The root suite"), () => {
 
@@ -25,7 +25,7 @@ describe(specTitle("The root suite"), () => {
             expect(true).to.be.false;
         });
 
-        it("Test case #4 (must raise an error)", () => {
+        it("Test case #5 (must raise an error)", () => {
             undefined.toString();
         });
 
