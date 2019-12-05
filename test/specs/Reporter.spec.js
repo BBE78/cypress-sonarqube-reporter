@@ -7,7 +7,7 @@ const { cleanOuputDir, verifyReportExists, verifyGeneratedReport } = require("./
 
 describe("Testing reporter", () => {
 
-    const cypressRunTimeout = 30000;
+    const cypressRunTimeout = 60000;
 
     describe("with default options", () => {
 
