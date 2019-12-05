@@ -87,7 +87,7 @@ describe("Testing reporter", () => {
                     preserveSpecsDir: false
                 }
             });
-            return cypress.run(config).then(() => {
+            return cypress.run(config).catch(() => {
                 verifyReportExists(path);
                 const data = fse.readFileSync(path, { encoding: "utf8" });
                 expect(data).toBe("should not be overwritten");
