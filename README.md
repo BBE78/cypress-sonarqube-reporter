@@ -1,4 +1,8 @@
 # cypress-sonarqube-reporter
+[![Build Status](https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master)](https://travis-ci.org/BBE78/cypress-sonarqube-reporter)
+[![badge](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
+![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
+
 A [SonarQube](https://www.sonarqube.org/) XML reporter for [Cypress](https://www.cypress.io/).
 
 Generated XML reports are compliant with *Generic Execution* described in https://docs.sonarqube.org/latest/analysis/generic-test/
@@ -159,7 +163,12 @@ To avoid suite title pollution in other reporters (like the great [mochawesome](
 | `titleSeparator` | `string` | `" - "` | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true`
 
 ## Issues & Enhancements
+![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
+![GitHub issues](https://img.shields.io/github/issues-closed-raw/BBE78/cypress-sonarqube-reporter)
+
 For any bugs, enhancements, or just questions feel free to use the [GitHub Issues](https://github.com/BBE78/cypress-sonarqube-reporter/issues)
 
 ## Licence
-MIT License
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/cypress-io/cypress/blob/master/LICENSE)
+
+This project is licensed under the terms of the [MIT license](/LICENSE).
