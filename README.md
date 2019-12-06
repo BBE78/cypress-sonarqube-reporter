@@ -98,6 +98,7 @@ describe(specTitle("The root suite"), () => {
 
 ## From Mocha tests result to SonarQube Generic Execution report
 The following table explains the association between test states and the generated XML part:
+
 | Mocha test state | SonarQube Execution `testCase` child node |
 | --- | --- |
 | `"passed"` | none |
