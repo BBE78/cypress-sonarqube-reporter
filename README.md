@@ -10,7 +10,7 @@ Generated XML reports are compliant with *Generic Execution* described in https:
 ## Why another one ?
 Since this Cypress issue: https://github.com/cypress-io/cypress/issues/1495, spec filename are not available for reporters in a Cypress environnement.
 
-So this reporter provides a workaround (simplified as possible) in order to be able to generate these SonarQube reports...
+So this reporter provides a workaround (simplified as possible) in order to be able to generate these SonarQube reports.
 
 Other existing Mocha SonarQube reporters:
  * [danmasta/mocha-sonar](https://github.com/danmasta/mocha-sonar)
@@ -46,7 +46,7 @@ describe(specTitle("The root suite"), () => {
             expect(true).to.be.false;
         });
 
-        it("Test case #4 (must raise an error)", () => {
+        it("Test case #5 (must raise an error)", () => {
             undefined.toString();
         });
 
@@ -59,41 +59,50 @@ describe(specTitle("The root suite"), () => {
 <!-- File: dist/cypress/integration/Sample.spec.js.xml -->
 <?xml version="1.0" encoding="utf-8"?>
 <testExecutions version="1">
-  <file path="cypress/integration/Sample.spec.js">
-    <testCase name="The root suite - Test case #1 (must pass)" duration="40"/>
-    <testCase name="The root suite - A sub suite - Test case #2 (must pass)" duration="21"/>
-    <testCase name="The root suite - A sub suite - Test case #3 (must fail)" duration="623">
+  <file path="test/cypress/integration/Sample.spec.js">
+    <testCase name="The root suite - Test case #1 (must pass)" duration="64"/>
+    <testCase name="The root suite - A sub suite - Test case #2 (must pass)" duration="34"/>
+    <testCase name="The root suite - A sub suite - Test case #3 (must fail)" duration="513">
       <failure message="AssertionError: expected true to be false">
         <![CDATA[AssertionError: expected true to be false
-    at Context.runnable.fn (http://localhost:55471/__cypress/runner/cypress_runner.js:101081:20)
-    at callFn (http://localhost:55471/__cypress/runner/cypress_runner.js:30931:21)
-    at http://localhost:55471/__cypress/runner/cypress_runner.js:104009:28
-    at PassThroughHandlerContext.finallyHandler (http://localhost:55471/__cypress/runner/cypress_runner.js:135962:23)
-    at PassThroughHandlerContext.tryCatcher (http://localhost:55471/__cypress/runner/cypress_runner.js:139407:23)
-    at Promise._settlePromiseFromHandler (http://localhost:55471/__cypress/runner/cypress_runner.js:137343:31)
-    at Promise._settlePromise (http://localhost:55471/__cypress/runner/cypress_runner.js:137400:18)
-    at Promise._settlePromise0 (http://localhost:55471/__cypress/runner/cypress_runner.js:137445:10)
-    at Promise._settlePromises (http://localhost:55471/__cypress/runner/cypress_runner.js:137524:18)
-    at Promise._fulfill (http://localhost:55471/__cypress/runner/cypress_runner.js:137469:18)
-    at Promise._settlePromise (http://localhost:55471/__cypress/runner/cypress_runner.js:137413:21)
-    at Promise._settlePromise0 (http://localhost:55471/__cypress/runner/cypress_runner.js:137445:10)
-    at Promise._settlePromises (http://localhost:55471/__cypress/runner/cypress_runner.js:137524:18)
-    at Promise._fulfill (http://localhost:55471/__cypress/runner/cypress_runner.js:137469:18)
-    at Promise._resolveCallback (http://localhost:55471/__cypress/runner/cypress_runner.js:137263:57)]]>
+    at Context.runnable.fn (http://localhost:62294/__cypress/runner/cypress_runner.js:101081:20)
+    at callFn (http://localhost:62294/__cypress/runner/cypress_runner.js:30931:21)
+    at http://localhost:62294/__cypress/runner/cypress_runner.js:104009:28
+    at PassThroughHandlerContext.finallyHandler (http://localhost:62294/__cypress/runner/cypress_runner.js:135962:23)
+    at PassThroughHandlerContext.tryCatcher (http://localhost:62294/__cypress/runner/cypress_runner.js:139407:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62294/__cypress/runner/cypress_runner.js:137343:31)
+    at Promise._settlePromise (http://localhost:62294/__cypress/runner/cypress_runner.js:137400:18)
+    at Promise._settlePromise0 (http://localhost:62294/__cypress/runner/cypress_runner.js:137445:10)
+    at Promise._settlePromises (http://localhost:62294/__cypress/runner/cypress_runner.js:137524:18)
+    at Promise._fulfill (http://localhost:62294/__cypress/runner/cypress_runner.js:137469:18)
+    at Promise._settlePromise (http://localhost:62294/__cypress/runner/cypress_runner.js:137413:21)
+    at Promise._settlePromise0 (http://localhost:62294/__cypress/runner/cypress_runner.js:137445:10)
+    at Promise._settlePromises (http://localhost:62294/__cypress/runner/cypress_runner.js:137524:18)
+    at Promise._fulfill (http://localhost:62294/__cypress/runner/cypress_runner.js:137469:18)
+    at Promise._resolveCallback (http://localhost:62294/__cypress/runner/cypress_runner.js:137263:57)]]>
       </failure>
     </testCase>
     <testCase name="The root suite - Another sub suite - Test case #4 (must be skipped)" duration="0">
       <skipped message="skipped test"/>
     </testCase>
-    <testCase name="The root suite - Another sub suite - Test case #4 (must raise an error)" duration="478">
-      <failure message="TypeError: Cannot read property 'toString' of undefined">
+    <testCase name="The root suite - Another sub suite - Test case #5 (must raise an error)" duration="488">
+      <error message="TypeError: Cannot read property 'toString' of undefined">
         <![CDATA[TypeError: Cannot read property 'toString' of undefined
-    at Context.<anonymous> (http://localhost:55471/__cypress/tests?p=cypress\integration\Sample.spec.js-198:23:17)]]>
-      </failure>
+    at Context.<anonymous> (http://localhost:62294/__cypress/tests?p=test\cypress\integration\Sample.spec.js-285:37:17)]]>
+      </error>
     </testCase>
   </file>
 </testExecutions>
 ```
+
+## From Mocha tests result to SonarQube Generic Execution report
+The following table explains the association between test states and the generated XML part:
+| Mocha test state | SonarQube Execution `testCase` child node |
+| --- | --- |
+| `"passed"` | none |
+| `"pending"` | `<skipped message="skipped test"/>` short message is always "skipped message" |
+| `"failed"` and `test.err.name === "AssertionError"` | `<failure message="AssertionError: expected true to be false"><![CDATA[AssertionError: expected true to be false    at ...]]></failure>` |
+| `"failed"` and `test.err.name !== "AssertionError"` | `<error message="TypeError: Cannot read property 'toString' of undefined"><![CDATA[TypeError: Cannot read property 'toString' of undefined    at ...]]></error>` |
 
 
 ## Installing
@@ -155,12 +164,12 @@ To avoid suite title pollution in other reporters (like the great [mochawesome](
 ## Reporter Options
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `outputDir` | `string` | `"./dist"` | folder name for the generated SonarQube XML reports, will be automatically created if not exist
-| `preserveSpecsDir` | `boolean` | `true` | specify if tests folders structure should be preserved
-| `overwrite` | `boolean` | `false` | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist
-| `prefix` | `string` | `""` | file prefix for the generated SonarQube XML reports
-| `useFullTitle` | `boolean` | `true` | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title
-| `titleSeparator` | `string` | `" - "` | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true`
+| `outputDir` | `string` | `"./dist"` | folder name for the generated SonarQube XML reports, will be automatically created if not exist |
+| `preserveSpecsDir` | `boolean` | `true` | specify if tests folders structure should be preserved |
+| `overwrite` | `boolean` | `false` | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist |
+| `prefix` | `string` | `""` | file prefix for the generated SonarQube XML reports |
+| `useFullTitle` | `boolean` | `true` | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
+| `titleSeparator` | `string` | `" - "` | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
 
 ## Issues & Enhancements
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)

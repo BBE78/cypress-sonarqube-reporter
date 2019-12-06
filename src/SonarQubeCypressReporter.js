@@ -125,9 +125,15 @@ class SonarQubeCypressReporter {
             .attribute("duration", test.duration || 0);
         switch (test.state) {
             case "failed":
-                testNode.element("failure")
+                if (test.err.name === "AssertionError") {
+                    testNode.element("failure")
                     .attribute("message", `${test.err.name}: ${test.err.message}`)
                     .cdata(test.err.stack);
+                } else {
+                    testNode.element("error")
+                    .attribute("message", `${test.err.name}: ${test.err.message}`)
+                    .cdata(test.err.stack);
+                }
                 break;
             case "pending":
                 testNode.element("skipped")

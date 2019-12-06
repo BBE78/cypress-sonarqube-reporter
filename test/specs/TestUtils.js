@@ -56,10 +56,10 @@ const verifyGeneratedReport = (path, separator, fullTitle) => {
     expect(json.testExecutions.file.testCase[++i]).toBeDefined();
     expect(json.testExecutions.file.testCase[i]._name).toBe(useFullTitle ? `The root suite${titleSeparator}Another sub suite${titleSeparator}Test case #5 (must raise an error)` : "Test case #5 (must raise an error)");
     expect(json.testExecutions.file.testCase[i]._duration).toBeGreaterThanOrEqual(0);
-    expect(json.testExecutions.file.testCase[i].failure).toBeDefined();
-    expect(json.testExecutions.file.testCase[i].failure._message).toBe("TypeError: Cannot read property 'toString' of undefined");
-    expect(json.testExecutions.file.testCase[i].failure.text).toStartWith("TypeError: Cannot read property 'toString' of undefined");
-    expect(json.testExecutions.file.testCase[i].failure.text).toIncludeMultiple([ " at " ]);
+    expect(json.testExecutions.file.testCase[i].error).toBeDefined();
+    expect(json.testExecutions.file.testCase[i].error._message).toBe("TypeError: Cannot read property 'toString' of undefined");
+    expect(json.testExecutions.file.testCase[i].error.text).toStartWith("TypeError: Cannot read property 'toString' of undefined");
+    expect(json.testExecutions.file.testCase[i].error.text).toIncludeMultiple([ " at " ]);
 };
 
 module.exports = {
