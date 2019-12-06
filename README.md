@@ -1,14 +1,15 @@
 # cypress-sonarqube-reporter
 [![Build Status](https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master)](https://travis-ci.org/BBE78/cypress-sonarqube-reporter)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b72fd9184ead4b93801c213667e6db17)](https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Grade)
 [![badge](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
 
 A [SonarQube](https://www.sonarqube.org/) XML reporter for [Cypress](https://www.cypress.io/).
 
-Generated XML reports are compliant with *Generic Execution* described in https://docs.sonarqube.org/latest/analysis/generic-test/
+Generated XML reports are compliant with *Generic Execution* described in <https://docs.sonarqube.org/latest/analysis/generic-test/>
 
-## Why another one ?
-Since this Cypress issue: https://github.com/cypress-io/cypress/issues/1495, spec filename are not available for reporters in a Cypress environnement.
+## Why another one?
+Since this Cypress issue: <https://github.com/cypress-io/cypress/issues/1495>, spec filename are not available for reporters in a Cypress environnement.
 
 So this reporter provides a workaround (simplified as possible) in order to be able to generate these SonarQube reports.
 

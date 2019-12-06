@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const colors = require("colors");
 const fse = require("fs-extra");
