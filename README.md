@@ -1,6 +1,7 @@
 # cypress-sonarqube-reporter
 [![Build Status](https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master)](https://travis-ci.org/BBE78/cypress-sonarqube-reporter)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b72fd9184ead4b93801c213667e6db17)](https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/b72fd9184ead4b93801c213667e6db17)](https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Coverage)
 [![badge](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
 ![npm](https://img.shields.io/npm/dm/cypress-sonarqube-reporter)

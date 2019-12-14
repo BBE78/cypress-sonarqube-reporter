@@ -1,11 +1,11 @@
 {
     "name": "cypress-sonarqube-reporter",
-    "version": "1.3.3",
+    "version": "1.3.3-alpha",
     "description": "A SonarQube XML reporter for Cypress",
     "main": "index.js",
     "scripts": {
         "clean": "rimraf dist",
-        "test": "npm run clean && jest --forceExit test/specs/",
+        "test": "npm run clean && jest --forceExit test/specs/ && npx cat dist/reports/coverage/lcov.info | codacy-coverage --token 0a3fe904aa76425c962e1a70f90483ef",
         "lint": "eslint --format json --output-file dist/eslint-report.json src/** test/specs/**",
         "sonar": "node sonar-project.js"
     },
@@ -33,6 +33,7 @@
         "xmlbuilder": "^13.0.2"
     },
     "devDependencies": {
+        "codacy-coverage": "^3.4.0",
         "cypress-multi-reporters": "^1.2.3",
         "eslint": "^6.7.1",
         "eslint-plugin-cypress": "^2.7.0",
@@ -45,6 +46,17 @@
         "rimraf": "^3.0.0"
     },
     "jest": {
+        "collectCoverage": true,
+        "collectCoverageFrom": [
+            "index.js",
+            "specTitle.js",
+            "src/**/*.js"
+        ],
+        "coverageDirectory": "dist/reports/coverage",
+        "coverageReporters": [
+            "lcovonly",
+            "html"
+        ],
         "setupFilesAfterEnv": [
             "jest-extended"
         ],
@@ -54,10 +66,13 @@
         ],
         "reporters": [
             "default",
-            ["jest-html-reporters", {
-                "publicPath": "dist/reports/jest",
-                "filename": "jest-report.html"
-            }]
+            [
+                "jest-html-reporters",
+                {
+                    "publicPath": "dist/reports/jest",
+                    "filename": "jest-report.html"
+                }
+            ]
         ]
     },
     "eslintConfig": {

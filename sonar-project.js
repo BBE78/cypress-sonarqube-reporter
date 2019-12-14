@@ -6,6 +6,7 @@ sonarqubeScanner({
         "sonar.sources": "src",
         "sonar.tests": "test",
         "sonar.sourceEncoding": "utf-8",
-        "sonar.eslint.reportPaths": "dist/eslint-report.json"
+        "sonar.eslint.reportPaths": "dist/eslint-report.json",
+        "sonar.javascript.lcov.reportPaths": "dist/reports/coverage/lcov.info"
     }
 }, () => {});

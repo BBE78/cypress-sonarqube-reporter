@@ -1,3 +1,4 @@
+/* eslint jest/expect-expect: ["error", { "assertFunctionNames": ["expect", "verifyReportExists", "verifyGeneratedReport"] }] */
 
 const cypress = require("cypress");
 const cypressDefaultConfig = require("./CypressDefaultConfig");
@@ -7,7 +8,8 @@ const { cleanOuputDir, verifyReportExists, verifyGeneratedReport } = require("./
 
 describe("Testing reporter", () => {
 
-    const cypressRunTimeout = 60000;
+    // Running Cypress could sometimes take a long time...
+    const cypressRunTimeout = 90000;
 
     describe("with default options", () => {
 

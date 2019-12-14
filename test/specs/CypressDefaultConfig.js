@@ -1,6 +1,6 @@
 
 module.exports = {
-    exit: true,
+    noExit: false,
     configFile: false,
     config: {
         integrationFolder: "test/cypress/integration",
