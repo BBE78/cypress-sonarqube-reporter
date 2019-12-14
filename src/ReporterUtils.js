@@ -133,13 +133,6 @@ const writeFile = (specFilename, data, options) => {
         const err = `the reporter "${file}" already exists`;
         error(err);
     } else {
-        /*fse.outputFile(file, data, "utf8", (err) => {
-            if (err) {
-                error(`could not write file "${file}": ${err}`);
-            } else {
-                info(`report saved to "${file}"`);
-            }
-        });*/
         return fse.outputFile(file, data, "utf8")
             .then(() => {
                 info(`report saved to "${file}"`);
