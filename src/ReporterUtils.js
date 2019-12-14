@@ -9,6 +9,7 @@ const path = require("path");
  * @param {string} message
  */
 const info = (message) => {
+    // eslint-disable-next-line no-console
     console.info(`[${colors.grey("cypress-sonarqube-reporter")}] ${message}`);
 };
 
@@ -18,6 +19,7 @@ const info = (message) => {
  * @param {string} message
  */
 const error = (message) => {
+    // eslint-disable-next-line no-console
     console.error(`[${colors.red("cypress-sonarqube-reporter")}] ${message}`);
     throw message;
 };
@@ -58,6 +60,34 @@ const extractTitleFromSuite = (suite) => {
 };
 
 /**
+ * Format the suite title(s)
+ *
+ * @param {object} suite the Mocha suite
+ * @returns {string} the aggregation of title suite(s)
+ */
+const formatSuiteTitle = (suite, options) => {
+    if (suite.parent && suite.parent.title !== "") {
+        return `${formatSuiteTitle(suite.parent, options)}${options.titleSeparator}${extractTitleFromSuite(suite)}`;
+    } else {
+        return extractTitleFromSuite(suite);
+    }
+};
+
+/**
+ * Format the test title
+ *
+ * @param {object} test the Mocha test
+ * @returns {string} the formatted test title
+ */
+const formatTestTitle = (test, options) => {
+    if (test.parent && options.useFullTitle) {
+        return `${formatSuiteTitle(test.parent, options)}${options.titleSeparator}${test.title}`;
+    } else {
+        return test.title;
+    }
+};
+
+/**
  * Build <testCase> node according to specified test
  *
  * @param {object} node the XML <file> node
@@ -88,34 +118,6 @@ const formatTest = (node, test, options) => {
             break;
         default:
             error(`unknown test state: ${test.state}`);
-    }
-};
-
-/**
- * Format the test title
- *
- * @param {object} test the Mocha test
- * @returns {string} the formatted test title
- */
-const formatTestTitle = (test, options) => {
-    if (test.parent && options.useFullTitle) {
-        return `${formatSuiteTitle(test.parent, options)}${options.titleSeparator}${test.title}`;
-    } else {
-        return test.title;
-    }
-};
-
-/**
- * Format the suite title(s)
- *
- * @param {object} suite the Mocha suite
- * @returns {string} the aggregation of title suite(s)
- */
-const formatSuiteTitle = (suite, options) => {
-    if (suite.parent && suite.parent.title !== "") {
-        return `${formatSuiteTitle(suite.parent, options)}${options.titleSeparator}${extractTitleFromSuite(suite)}`;
-    } else {
-        return extractTitleFromSuite(suite);
     }
 };
 

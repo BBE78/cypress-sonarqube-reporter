@@ -18,8 +18,8 @@ So this reporter provides a workaround (simplified as possible) in order to be a
 A SonarQube test execution report is created for each Cypress spec file.
 
 Other existing Mocha SonarQube reporters:
- * [danmasta/mocha-sonar](https://github.com/danmasta/mocha-sonar)
- * [mmouterde/mocha-sonarqube-reporter](https://github.com/mmouterde/mocha-sonarqube-reporter)
+* [danmasta/mocha-sonar](https://github.com/danmasta/mocha-sonar)
+* [mmouterde/mocha-sonarqube-reporter](https://github.com/mmouterde/mocha-sonarqube-reporter)
 
 ## Example
 The following Cypress/Mocha spec...
@@ -103,13 +103,12 @@ describe(specTitle("The root suite"), () => {
 ## From Mocha tests result to SonarQube Generic Execution report
 The following table explains the association between test states and the generated XML part:
 
-| Mocha test state | SonarQube Execution `testCase` child node |
-| --- | --- |
-| `"passed"` | none |
-| `"pending"` | `<skipped message="skipped test"/>` short message is always "skipped message" |
+| Mocha test state                                    | SonarQube Execution `testCase` child node |
+| --------------------------------------------------- | ----------------------------------------- |
+| `"passed"`                                          | none |
+| `"pending"`                                         | `<skipped message="skipped test"/>` short message is always "skipped message" |
 | `"failed"` and `test.err.name === "AssertionError"` | `<failure message="AssertionError: expected true to be false"><![CDATA[AssertionError: expected true to be false    at ...]]></failure>` |
 | `"failed"` and `test.err.name !== "AssertionError"` | `<error message="TypeError: Cannot read property 'toString' of undefined"><![CDATA[TypeError: Cannot read property 'toString' of undefined    at ...]]></error>` |
-
 
 ## Installing
 In Node.js environnement, use your favorite command:
@@ -154,6 +153,7 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 	}
 }
 ```
+
 ### Spec files update
 The magic behind the scene is the use of `Cypress.spec` object (see [Cypress documentation](https://docs.cypress.io/api/cypress-api/spec.html#Syntax)) that is only available on spec files (ie not on reporter scope), so the drawback of this workaround is to use the function `specTitle(title: string)` from `specTitle.js` instead of the suite title:
 ```js
@@ -168,14 +168,14 @@ This `Cypress.spec` object is only available since Cypress v3.0.2 (see [Cypress 
 To avoid suite title pollution in other reporters (like the great [mochawesome](https://github.com/adamgruber/mochawesome#mochawesome)), make sure that `cypress-sonarqube-reporter` is the first one in the list.
 
 ## Reporter Options
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `outputDir` | `string` | `"./dist"` | folder name for the generated SonarQube XML reports, will be automatically created if not exist |
-| `preserveSpecsDir` | `boolean` | `true` | specify if tests folders structure should be preserved |
-| `overwrite` | `boolean` | `false` | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist |
-| `prefix` | `string` | `""` | file prefix for the generated SonarQube XML reports |
-| `useFullTitle` | `boolean` | `true` | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
-| `titleSeparator` | `string` | `" - "` | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
+| Name               | Type      | Default    | Description |
+| ------------------ | --------- | ---------- | ----------- |
+| `outputDir`        | `string`  | `"./dist"` | folder name for the generated SonarQube XML reports, will be automatically created if not exist |
+| `preserveSpecsDir` | `boolean` | `true`     | specify if tests folders structure should be preserved |
+| `overwrite`        | `boolean` | `false`    | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist |
+| `prefix`           | `string`  | `""`       | file prefix for the generated SonarQube XML reports |
+| `useFullTitle`     | `boolean` | `true`     | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
+| `titleSeparator`   | `string`  | `" - "`    | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
 
 ## Issues & Enhancements
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
