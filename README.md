@@ -1,14 +1,21 @@
-# cypress-sonarqube-reporter
-[![Build Status](https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master)](https://travis-ci.org/BBE78/cypress-sonarqube-reporter)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b72fd9184ead4b93801c213667e6db17)](https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/b72fd9184ead4b93801c213667e6db17)](https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Coverage)
-[![badge](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
-![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
-![npm](https://img.shields.io/npm/dm/cypress-sonarqube-reporter)
-
-A [SonarQube](https://www.sonarqube.org/) XML reporter for [Cypress](https://www.cypress.io/).
-
-Generated XML reports are compliant with *Generic Execution* described in <https://docs.sonarqube.org/latest/analysis/generic-test/>
+<p style="font-size: 38px; text-align: center;">
+	<img style="vertical-align: -60%;" src="doc/logo.png"> Cypress SonarQube Reporter
+</p>
+<p style="text-align: center;">
+A <a href="https://www.sonarqube.org/" target="_blank">SonarQube</a> XML reporter for <a href="https://www.cypress.io/" target="_blank">Cypress</a>.<br/>
+Generated XML reports are compliant with <i>Generic Execution</i> described in <a href="https://docs.sonarqube.org/latest/analysis/generic-test/" target="_blank">https://docs.sonarqube.org/latest/analysis/generic-test/</a>
+</p>
+<br/>
+<p style="text-align: center;">
+	<a href="https://travis-ci.org/BBE78/cypress-sonarqube-reporter"><img src="https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master"></a>
+	<a href="https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/b72fd9184ead4b93801c213667e6db17"/></a>
+	<a href="https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/b72fd9184ead4b93801c213667e6db17"/></a>
+	<a href="https://cypress.io"><img src="https://img.shields.io/badge/cypress.io-tests-green.svg" alt="cypress.io"></a>
+	<a href="https://github.com/BBE78/cypress-sonarqube-reporter/issues"><img src="https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter" alt="issues"></a>
+	<a href="https://www.npmjs.com/package/cypress-sonarqube-reporter"><img src="https://img.shields.io/npm/dm/cypress-sonarqube-reporter" alt="npmjs"></a>
+	<a href="https://www.npmjs.com/package/cypress-sonarqube-reporter"><img src="https://img.shields.io/github/package-json/v/BBE78/cypress-sonarqube-reporter"  alt="GitHub package.json version"></a>
+</p>
+<br/>
 
 ## Why another one?
 Since this Cypress issue: <https://github.com/cypress-io/cypress/issues/1495>, spec filename are not available for reporters in a Cypress environnement.
