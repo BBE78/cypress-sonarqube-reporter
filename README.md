@@ -5,7 +5,7 @@
 A <a href="https://www.sonarqube.org/" target="_blank">SonarQube</a> XML reporter for <a href="https://www.cypress.io/" target="_blank">Cypress</a>.
 </p>
 <p align="center">
-Generated XML reports are compliant with <i>Generic Execution</i> described in <a href="https://docs.sonarqube.org/latest/analysis/generic-test/" target="_blank">https://docs.sonarqube.org/latest/analysis/generic-test/</a>
+Generated XML reports are compliant with <i>Generic Execution</i> described in <a href="https://docs.sonarqube.org/latest/analysis/generic-test/#header-2" target="_blank">https://docs.sonarqube.org/latest/analysis/generic-test/</a>
 </p>
 <p align="center">
 	<a href="https://travis-ci.org/BBE78/cypress-sonarqube-reporter"><img src="https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master"></a>
