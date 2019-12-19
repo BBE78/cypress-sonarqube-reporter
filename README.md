@@ -1,12 +1,13 @@
-<p style="font-size: 38px; text-align: center;">
-	<img style="vertical-align: -60%;" src="doc/logo.png"> Cypress SonarQube Reporter
+<p align="center">
+	<img src="doc/logo.png">
 </p>
-<p style="text-align: center;">
-A <a href="https://www.sonarqube.org/" target="_blank">SonarQube</a> XML reporter for <a href="https://www.cypress.io/" target="_blank">Cypress</a>.<br/>
+<p align="center">
+A <a href="https://www.sonarqube.org/" target="_blank">SonarQube</a> XML reporter for <a href="https://www.cypress.io/" target="_blank">Cypress</a>.
+</p>
+<p align="center">
 Generated XML reports are compliant with <i>Generic Execution</i> described in <a href="https://docs.sonarqube.org/latest/analysis/generic-test/" target="_blank">https://docs.sonarqube.org/latest/analysis/generic-test/</a>
 </p>
-<br/>
-<p style="text-align: center;">
+<p align="center">
 	<a href="https://travis-ci.org/BBE78/cypress-sonarqube-reporter"><img src="https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master"></a>
 	<a href="https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/b72fd9184ead4b93801c213667e6db17"/></a>
 	<a href="https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/b72fd9184ead4b93801c213667e6db17"/></a>
