@@ -29,6 +29,11 @@ Other existing Mocha SonarQube reporters:
 * [danmasta/mocha-sonar](https://github.com/danmasta/mocha-sonar)
 * [mmouterde/mocha-sonarqube-reporter](https://github.com/mmouterde/mocha-sonarqube-reporter)
 
+## Tested with Cypress
+This reporter has been tested with the following Cypress versions :
+* **v3.7.0**: assuming that it should work with v3.x versions
+* **v4.0.1**: assuming that it should work with (at least) v4.0.x versions
+
 ## Example
 The following Cypress/Mocha spec...
 ```js
@@ -36,35 +41,25 @@ The following Cypress/Mocha spec...
 const specTitle = require("cypress-sonarqube-reporter/specTitle");
 
 describe(specTitle("The root suite"), () => {
-
     it("Test case #1 (must pass)", () => {
         expect(true).to.be.true;
     });
-
     describe("A sub suite", () => {
-
         it("Test case #2 (must pass)", () => {
             expect(true).to.be.true;
         });
-
         it("Test case #3 (must fail)", () => {
             expect(true).to.be.false;
         });
-
     });
-
     describe("Another sub suite", () => {
-
         xit("Test case #4 (must be skipped)", () => {
             expect(true).to.be.false;
         });
-
         it("Test case #5 (must raise an error)", () => {
             undefined.toString();
         });
-
     });
-
 });
 ```
 ...will provide the following generated SonarQube report (with default options)
@@ -133,7 +128,7 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 {
 	"reporter": "cypress-sonarqube-reporter",
 	"reporterOptions": {
-		...
+		// see "Reporter Options" section
 	}
 }
 ```
@@ -145,19 +140,13 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 {
 	"reporter": "cypress-multi-reporters",
 	"reporterOptions": {
-		"configFile": "cypress-reporters.json"
-	}
-}
-```
-```json
-// File: cypress-reporters.json
-{
-	"reporterEnabled": "cypress-sonarqube-reporter, mochawesome",
-	"mochawesomeReporterOptions": {
-		...
-	},
-	"cypressSonarqubeReporterReporterOptions": {
-		...
+		"reporterEnabled": "cypress-sonarqube-reporter, mochawesome",
+		"mochawesomeReporterOptions": {
+			// mochawesome options...
+		},
+		"cypressSonarqubeReporterReporterOptions": {
+			// see "Reporter Options" section
+		}
 	}
 }
 ```
