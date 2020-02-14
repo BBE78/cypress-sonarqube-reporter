@@ -26,13 +26,13 @@ So this reporter provides a workaround (simplified as possible) in order to be a
 A SonarQube test execution report is created for each Cypress spec file.
 
 Other existing Mocha SonarQube reporters:
-* [danmasta/mocha-sonar](https://github.com/danmasta/mocha-sonar)
-* [mmouterde/mocha-sonarqube-reporter](https://github.com/mmouterde/mocha-sonarqube-reporter)
+*   [danmasta/mocha-sonar](https://github.com/danmasta/mocha-sonar)
+*   [mmouterde/mocha-sonarqube-reporter](https://github.com/mmouterde/mocha-sonarqube-reporter)
 
 ## Tested with Cypress
 This reporter has been tested with the following Cypress versions :
-* **v3.7.0**: assuming that it should work with v3.x versions
-* **v4.0.1**: assuming that it should work with (at least) v4.0.x versions
+*   **v3.7.0**: assuming that it should work with v3.x versions
+*   **v4.0.1**: assuming that it should work with (at least) v4.0.x versions
 
 ## Example
 The following Cypress/Mocha spec...
