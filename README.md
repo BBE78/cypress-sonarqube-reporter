@@ -21,6 +21,8 @@ Generated XML reports are compliant with <i>Generic Execution</i> described in <
 ## Why another one?
 Since this Cypress issue: <https://github.com/cypress-io/cypress/issues/1495>, spec filename are not available for reporters in a Cypress environnement.
 
+\[**EDIT** 02-14-2020]: despite the correction of this issue since Cypress v3.8.3 (see [Release Notes](https://github.com/cypress-io/cypress/releases/tag/v3.8.3)), the problem is still there and the below reporters are still not working...
+
 So this reporter provides a workaround (simplified as possible) in order to be able to generate these SonarQube reports.
 
 A SonarQube test execution report is created for each Cypress spec file.

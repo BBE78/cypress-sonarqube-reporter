@@ -256,6 +256,7 @@ describe("Testing ReporterUtils.js", () => {
             } catch (error) {
                 verifyReportExists(path);
                 const data = readFile(path);
+                // eslint-disable-next-line jest/no-try-expect
                 expect(data).toBe("should not be overwritten");
             }
     });

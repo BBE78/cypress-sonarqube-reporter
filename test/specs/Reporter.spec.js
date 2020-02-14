@@ -2,8 +2,13 @@
 
 const cypress = require("cypress");
 const cypressDefaultConfig = require("./CypressDefaultConfig");
-const fse = require("fs-extra");
-const { cleanOuputDir, verifyReportExists, verifyGeneratedReport } = require("./TestUtils");
+const {
+    cleanOuputDir,
+    createFile,
+    readFile,
+    verifyReportExists,
+    verifyGeneratedReport
+} = require("./TestUtils");
 
 
 describe("Testing reporter", () => {
@@ -78,7 +83,7 @@ describe("Testing reporter", () => {
 
         beforeAll(() => {
             cleanOuputDir("dist/overwriteFalse");
-            fse.outputFileSync(path, "should not be overwritten", { encoding: "utf8" });
+            createFile(path, "should not be overwritten");
         });
 
         test("running Cypress", () => {
@@ -91,7 +96,7 @@ describe("Testing reporter", () => {
             });
             return cypress.run(config).catch(() => {
                 verifyReportExists(path);
-                const data = fse.readFileSync(path, { encoding: "utf8" });
+                const data = readFile(path);
                 expect(data).toBe("should not be overwritten");
             });
         }, cypressRunTimeout);
@@ -104,7 +109,7 @@ describe("Testing reporter", () => {
 
         beforeAll(() => {
             cleanOuputDir("dist/overwriteTrue");
-            fse.outputFileSync(path, "should be overwritten", { encoding: "utf8" });
+            createFile(path, "should not be overwritten");
         });
 
         test("running Cypress", () => {
@@ -133,7 +138,21 @@ describe("Testing reporter", () => {
             const config = Object.assign(cypressDefaultConfig, {
                 reporter: "cypress-multi-reporters",
                 reporterOptions: {
-                    configFile: "test/cypress-reporters.json"
+                    reporterEnabled: "mochawesome, mocha-sonarqube-reporter",
+                    indexJsReporterOptions: {
+                        outputDir: "dist/multi"
+                    },
+                    danmastaMochaSonarReporterOptions: {
+                        output: "dist/multi/mocha-sonar/report.xml"
+                    },
+                    mochaSonarqubeReporterReporterOptions: {
+                        output: "dist/multi/mocha-sonarqube-reporter/report.xml"
+                    },
+                    mochawesomeReporterOptions: {
+                        reportDir: "dist/multi/mochawesome",
+                        html: false,
+                        json: true
+                    }
                 }
             });
             return cypress.run(config).then(() => {

@@ -100,9 +100,18 @@
     "remarkConfig": {
         "plugins": [
             "remark-preset-lint-recommended",
-            ["no-file-name-irregular-characters", false],
-            ["no-heading-punctuation", false],
-            ["table-pipe-alignment", false]
+            [
+                "no-file-name-irregular-characters",
+                false
+            ],
+            [
+                "no-heading-punctuation",
+                false
+            ],
+            [
+                "table-pipe-alignment",
+                false
+            ]
         ]
     }
 }
