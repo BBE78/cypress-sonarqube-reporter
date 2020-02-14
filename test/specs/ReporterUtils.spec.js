@@ -3,6 +3,8 @@
 const xmlbuilder = require("xmlbuilder");
 const {
     cleanOuputDir,
+    createFile,
+    readFile,
     verifyReportExists
 } = require("./TestUtils");
 const {
@@ -222,6 +224,7 @@ describe("Testing ReporterUtils.js", () => {
 
         const outputDir = "dist/temp";
         const file = "test/Sample.spec.js";
+        const path = `${outputDir}/${file}`;
 
         beforeEach(() => {
             cleanOuputDir(outputDir);
@@ -233,7 +236,20 @@ describe("Testing ReporterUtils.js", () => {
                 prefix: "",
                 preserveSpecsDir: true
             }).then(() => {
-                verifyReportExists("dist/temp/test/Sample.spec.js.xml");
+                verifyReportExists(path);
+            });
+        });
+
+        it("with option(s): overwrite=false", () => {
+            createFile(path, "should not be overwritten");
+            return writeFile(file, "hello world", {
+                outputDir: outputDir,
+                prefix: "",
+                preserveSpecsDir: true
+            }).catch(() => {
+                verifyReportExists(path);
+                const data = readFile(path);
+                expect(data).toBe("should not be overwritten");
             });
         });
 

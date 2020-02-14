@@ -2,6 +2,15 @@
 const fse = require("fs-extra");
 const parser = require("fast-xml-parser");
 
+
+const createFile = (path, content) => {
+    fse.outputFileSync(path, content, { encoding: "utf8" });
+}
+
+const readFile = (path) => {
+    return fse.readFileSync(path, { encoding: "utf8" });
+}
+
 const cleanOuputDir = (dir) => {
     fse.rmdirSync(dir, { recursive: true });
 };
@@ -64,6 +73,8 @@ const verifyGeneratedReport = (path, separator, fullTitle) => {
 
 module.exports = {
     cleanOuputDir,
+    createFile,
+    readFile,
     verifyReportExists,
     verifyGeneratedReport
 };
