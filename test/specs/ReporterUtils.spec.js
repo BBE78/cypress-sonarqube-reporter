@@ -223,35 +223,42 @@ describe("Testing ReporterUtils.js", () => {
     describe("writeFile()", () => {
 
         const outputDir = "dist/temp";
-        const file = "test/Sample.spec.js";
-        const path = `${outputDir}/${file}`;
+        const specFile = "test/Sample.spec.js";
+        const path = `${outputDir}/${specFile}.xml`;
 
         beforeEach(() => {
             cleanOuputDir(outputDir);
+            createFile(path, "should not be overwritten");
         });
 
         it("nominal", () => {
-            return writeFile(file, "hello world", {
+            return writeFile(specFile, "hello world", {
                 outputDir: outputDir,
                 prefix: "",
-                preserveSpecsDir: true
+                preserveSpecsDir: true,
+                overwrite: true
             }).then(() => {
                 verifyReportExists(path);
+                const data = readFile(path);
+                expect(data).toBe("hello world");
             });
         });
 
         it("with option(s): overwrite=false", () => {
-            createFile(path, "should not be overwritten");
-            return writeFile(file, "hello world", {
-                outputDir: outputDir,
-                prefix: "",
-                preserveSpecsDir: true
-            }).catch(() => {
+            try {
+                writeFile(specFile, "hello world", {
+                    outputDir: outputDir,
+                    prefix: "",
+                    preserveSpecsDir: true,
+                    overwrite: false
+                });
+                expect(true).toBe(false);
+            } catch (error) {
                 verifyReportExists(path);
                 const data = readFile(path);
                 expect(data).toBe("should not be overwritten");
-            });
-        });
+            }
+    });
 
     });
 

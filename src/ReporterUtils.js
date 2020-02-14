@@ -130,8 +130,7 @@ const writeFile = (specFilename, data, options) => {
     const specFilePath = (options.preserveSpecsDir) ? specFilename : path.basename(specFilename);
     const file = path.resolve(options.outputDir, `${options.prefix}${specFilePath}.xml`);
     if (!options.overwrite && fse.existsSync(file)) {
-        const err = `the reporter "${file}" already exists`;
-        error(err);
+        return error(`the reporter "${file}" already exists`);
     } else {
         return fse.outputFile(file, data, "utf8")
             .then(() => {
