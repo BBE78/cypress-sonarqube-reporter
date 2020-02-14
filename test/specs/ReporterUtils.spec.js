@@ -227,8 +227,8 @@ describe("Testing ReporterUtils.js", () => {
             cleanOuputDir(outputDir);
         });
 
-        xit("nominal", () => {
-            writeFile(file, "hello world", {
+        it("nominal", () => {
+            return writeFile(file, "hello world", {
                 outputDir: outputDir,
                 prefix: "",
                 preserveSpecsDir: true
