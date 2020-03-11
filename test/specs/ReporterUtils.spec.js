@@ -129,93 +129,85 @@ describe("Testing ReporterUtils.js", () => {
             node = xmlbuilder.create("root");
         });
 
-        describe("passed test", () => {
+        it("passed test", () => {
+            formatTest(node, {
+                title: "My test",
+                state: "passed",
+                duration: 123
+            }, {
+                useFullTitle: true
+            });
+            const result = node.end();
+            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"/></root>");
+        });
 
-            it("nominal", () => {
+        it("pending test", () => {
+            formatTest(node, {
+                title: "My test",
+                state: "pending",
+                duration: 123
+            }, {
+                useFullTitle: true
+            });
+            const result = node.end();
+            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><skipped message=\"skipped test\"/></testCase></root>");
+        });
+
+        it("skipped test", () => {
+            formatTest(node, {
+                title: "My test",
+                state: "skipped",
+                duration: 123
+            }, {
+                useFullTitle: true
+            });
+            const result = node.end();
+            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><skipped message=\"An error occurred during a hook and remaining tests in the current suite are skipped\"/></testCase></root>");
+        });
+
+        it("failed test", () => {
+            formatTest(node, {
+                title: "My test",
+                state: "failed",
+                duration: 123,
+                err: {
+                    name: "AssertionError",
+                    message: "the error",
+                    stack: "the full stack here"
+                }
+            }, {
+                useFullTitle: true
+            });
+            const result = node.end();
+            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><failure message=\"AssertionError: the error\"><![CDATA[the full stack here]]></failure></testCase></root>");
+        });
+
+        it("error test", () => {
+            formatTest(node, {
+                title: "My test",
+                state: "failed",
+                duration: 123,
+                err: {
+                    name: "SomethingElseError",
+                    message: "the error",
+                    stack: "the full stack here"
+                }
+            }, {
+                useFullTitle: true
+            });
+            const result = node.end();
+            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><error message=\"SomethingElseError: the error\"><![CDATA[the full stack here]]></error></testCase></root>");
+        });
+
+        it("unknown test state", () => {
+            expect(() => {
                 formatTest(node, {
                     title: "My test",
-                    state: "passed",
-                    duration: 123
+                    state: "something"
                 }, {
                     useFullTitle: true
                 });
-                const result = node.end();
-                expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"/></root>");
-            });
-
-        });
-
-        describe("skipped test", () => {
-
-            it("nominal", () => {
-                formatTest(node, {
-                    title: "My test",
-                    state: "pending",
-                    duration: 123
-                }, {
-                    useFullTitle: true
-                });
-                const result = node.end();
-                expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><skipped message=\"skipped test\"/></testCase></root>");
-            });
-
-        });
-
-        describe("failed test", () => {
-
-            it("nominal", () => {
-                formatTest(node, {
-                    title: "My test",
-                    state: "failed",
-                    duration: 123,
-                    err: {
-                        name: "AssertionError",
-                        message: "the error",
-                        stack: "the full stack here"
-                    }
-                }, {
-                    useFullTitle: true
-                });
-                const result = node.end();
-                expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><failure message=\"AssertionError: the error\"><![CDATA[the full stack here]]></failure></testCase></root>");
-            });
-
-        });
-
-        describe("error test", () => {
-
-            it("nominal", () => {
-                formatTest(node, {
-                    title: "My test",
-                    state: "failed",
-                    duration: 123,
-                    err: {
-                        name: "SomethingElseError",
-                        message: "the error",
-                        stack: "the full stack here"
-                    }
-                }, {
-                    useFullTitle: true
-                });
-                const result = node.end();
-                expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><error message=\"SomethingElseError: the error\"><![CDATA[the full stack here]]></error></testCase></root>");
-            });
-
-        });
-
-        describe("unknown test state", () => {
-
-            it("unknown", () => {
-                expect(() => {
-                    formatTest(node, {
-                        title: "My test",
-                        state: "something"
-                    }, {
-                        useFullTitle: true
-                    });
-                }).toThrowError("unknown test state: something");
-            });
-
+            }).toThrowError("unknown test state: something");
         });
 
     });

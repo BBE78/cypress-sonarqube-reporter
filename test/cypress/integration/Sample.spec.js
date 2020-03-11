@@ -31,4 +31,16 @@ describe(specTitle("The root suite"), () => {
 
     });
 
+    describe("A suite with a failed before hook", () => {
+
+        before(() => {
+            undefined.toString();
+        });
+
+        it("Test case #6 (must be skipped because of failed before hook)", () => {
+            expect(true).to.be.true;
+        });
+
+    });
+
 });

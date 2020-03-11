@@ -37,7 +37,7 @@ const verifyGeneratedReport = (path, separator, fullTitle) => {
     expect(json.testExecutions.file._path).toBe("test/cypress/integration/Sample.spec.js");
     expect(json.testExecutions.file.testCase).toBeDefined();
     expect(json.testExecutions.file.testCase).toBeArray();
-    expect(json.testExecutions.file.testCase).toBeArrayOfSize(5);
+    expect(json.testExecutions.file.testCase).toBeArrayOfSize(6);
 
     let i = -1;
     expect(json.testExecutions.file.testCase[++i]).toBeDefined();
@@ -69,6 +69,17 @@ const verifyGeneratedReport = (path, separator, fullTitle) => {
     expect(json.testExecutions.file.testCase[i].error._message).toBe("TypeError: Cannot read property 'toString' of undefined");
     expect(json.testExecutions.file.testCase[i].error.text).toStartWith("TypeError: Cannot read property 'toString' of undefined");
     expect(json.testExecutions.file.testCase[i].error.text).toIncludeMultiple([ " at " ]);
+
+    expect(json.testExecutions.file.testCase[++i]).toBeDefined();
+    expect(json.testExecutions.file.testCase[i]._name).toBe(useFullTitle ? `The root suite${titleSeparator}A suite with a failed before hook${titleSeparator}Test case #6 (must be skipped because of failed before hook)` : "Test case #6 (must be skipped because of failed before hook)");
+    expect(json.testExecutions.file.testCase[i]._duration).toBeGreaterThanOrEqual(0);
+    //expect(json.testExecutions.file.testCase[i].skipped).toBeDefined();
+    //expect(json.testExecutions.file.testCase[i].skipped._message).toBe("An error occurred during a hook and remaining tests in the current suite are skipped");
+    expect(json.testExecutions.file.testCase[i].error).toBeDefined();
+    expect(json.testExecutions.file.testCase[i].error._message).toStartWith("TypeError: Cannot read property 'toString' of undefined");
+    expect(json.testExecutions.file.testCase[i].error.text).toStartWith("TypeError: Cannot read property 'toString' of undefined");
+    expect(json.testExecutions.file.testCase[i].error.text).toInclude("Because this error occurred during a 'before");
+    expect(json.testExecutions.file.testCase[i].error.text).toInclude(" at ");
 };
 
 module.exports = {

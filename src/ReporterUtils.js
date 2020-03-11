@@ -113,6 +113,10 @@ const formatTest = (node, test, options) => {
             testNode.element("skipped")
                 .attribute("message", "skipped test");
             break;
+        case "skipped":
+            testNode.element("skipped")
+                .attribute("message", "An error occurred during a hook and remaining tests in the current suite are skipped");
+            break;
         case "passed":
             // nothing to do...
             break;
