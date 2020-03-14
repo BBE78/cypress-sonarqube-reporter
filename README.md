@@ -113,6 +113,7 @@ The following table explains the association between test states and the generat
 | --------------------------------------------------- | ----------------------------------------- |
 | `"passed"`                                          | none |
 | `"pending"`                                         | `<skipped message="skipped test"/>` short message is always "skipped message" |
+| `"skipped"`                                         | `<skipped message="An error occurred during a hook and remaining tests in the current suite are skipped"/>` |
 | `"failed"` and `test.err.name === "AssertionError"` | `<failure message="AssertionError: expected true to be false"><![CDATA[AssertionError: expected true to be false    at ...]]></failure>` |
 | `"failed"` and `test.err.name !== "AssertionError"` | `<error message="TypeError: Cannot read property 'toString' of undefined"><![CDATA[TypeError: Cannot read property 'toString' of undefined    at ...]]></error>` |
 
