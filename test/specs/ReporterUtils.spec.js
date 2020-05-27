@@ -88,15 +88,28 @@ describe("Testing ReporterUtils.js", () => {
 
         it("nominal", () => {
             const result = extractSpecFromSuite({
-                title: "My title [@spec: test/Sample.spec.js]"
+                title: "My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]"
+            }, {
+                useAbsoluteSpecPath: false
             });
             expect(result).toBe("test/Sample.spec.js");
         });
 
-        it("without spec in title", () => {
+        it("with absolute spec file option", () => {
+            const result = extractSpecFromSuite({
+                title: "My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]"
+            }, {
+                useAbsoluteSpecPath: true
+            });
+            expect(result).toBe("/builds/group/project/test/Sample.spec.js");
+        });
+
+        it("with spec in title", () => {
             expect(() => {
                 extractSpecFromSuite({
                     title: "My title"
+                }, {
+                    useAbsoluteSpecPath: false
                 });
             }).toThrowError("could not find spec filename from title: My title");
         });
@@ -107,7 +120,7 @@ describe("Testing ReporterUtils.js", () => {
 
         it("nominal", () => {
             const result = extractTitleFromSuite({
-                title: "My title [@spec: test/Sample.spec.js]"
+                title: "My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]"
             });
             expect(result).toBe("My title");
         });

@@ -20,7 +20,8 @@ const defaultOptions = {
     overwrite: false,
     prefix: "",
     useFullTitle: true,
-    titleSeparator: " - "
+    titleSeparator: " - ",
+    useAbsoluteSpecPath: false
 };
 
 
@@ -67,7 +68,7 @@ class SonarQubeCypressReporter {
     traverseSuite(node, suite) {
 
         if (suite.parent && suite.parent.root) {
-            this.specFilename = extractSpecFromSuite(suite);
+            this.specFilename = extractSpecFromSuite(suite, this.options);
             suite.title = extractTitleFromSuite(suite);
             node.attribute("path", this.specFilename);
         }

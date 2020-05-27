@@ -8,7 +8,8 @@ describe("Testing specTitle.js", () => {
         beforeEach(() => {
             global.Cypress = {
                 spec: {
-                    relative: "test/Sample.spec.js"
+                    relative: "test/Sample.spec.js",
+                    absolute: "/builds/group/project/test/Sample.spec.js"
                 }
             };
         });
@@ -19,7 +20,7 @@ describe("Testing specTitle.js", () => {
 
         test("nominal", () => {
             const result = specTitle("My title");
-            expect(result).toBe("My title [@spec: test/Sample.spec.js]");
+            expect(result).toBe("My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]");
         });
 
         test("with undefined", () => {
@@ -55,6 +56,17 @@ describe("Testing specTitle.js", () => {
             expect(() => {
                 specTitle("My title");
             }).toThrowError("Cypress.spec.relative is not defined, Cypress.spec = {}");
+        });
+
+        test("without Cypress.spec.absolute defined", () => {
+            global.Cypress = {
+                spec: {
+                    relative: "test/Sample.spec.js"
+                }
+            };
+            expect(() => {
+                specTitle("My title");
+            }).toThrowError("Cypress.spec.absolute is not defined, Cypress.spec = {\n    \"relative\": \"test/Sample.spec.js\"\n}");
         });
 
     });
