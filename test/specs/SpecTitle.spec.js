@@ -20,7 +20,7 @@ describe("Testing specTitle.js", () => {
 
         test("nominal", () => {
             const result = specTitle("My title");
-            expect(result).toBe("My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]");
+            expect(result).toBe("My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]");
         });
 
         test("with undefined", () => {

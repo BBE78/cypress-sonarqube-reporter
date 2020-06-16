@@ -88,7 +88,7 @@ describe("Testing ReporterUtils.js", () => {
 
         it("nominal", () => {
             const result = extractSpecFromSuite({
-                title: "My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]"
+                title: 'My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]'
             }, {
                 useAbsoluteSpecPath: false
             });
@@ -97,7 +97,7 @@ describe("Testing ReporterUtils.js", () => {
 
         it("with absolute spec file option", () => {
             const result = extractSpecFromSuite({
-                title: "My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]"
+                title: "My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]"
             }, {
                 useAbsoluteSpecPath: true
             });
@@ -120,7 +120,7 @@ describe("Testing ReporterUtils.js", () => {
 
         it("nominal", () => {
             const result = extractTitleFromSuite({
-                title: "My title [@specRelative: test/Sample.spec.js] [@specAbsolute: /builds/group/project/test/Sample.spec.js]"
+                title: "My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]"
             });
             expect(result).toBe("My title");
         });

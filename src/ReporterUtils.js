@@ -34,10 +34,16 @@ const error = (message) => {
  */
 const extractSpecFromSuite = (suite, options) => {
     const title = suite.title;
-    const tag = options.useAbsoluteSpecPath ? "[@specAbsolute: " : "[@specRelative: ";
+    const tag = "[@spec: ";
     const index = title.indexOf(tag);
     if (index > -1) {
-        return title.substring(index + tag.length, title.indexOf("]", index)).replace(/\\/g, "/");
+        let spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf("]")));
+
+        if (options.useAbsoluteSpecPath) {
+            return spec.absolute.replace(/\\/g, "/");
+        } else {
+            return spec.relative.replace(/\\/g, "/");
+        }
     } else {
         const err = `could not find spec filename from title: ${title}`;
         error(err);
@@ -52,7 +58,7 @@ const extractSpecFromSuite = (suite, options) => {
  */
 const extractTitleFromSuite = (suite) => {
     const title = suite.title;
-    const index = title.indexOf("[@specRelative:");
+    const index = title.indexOf("[@spec:");
     if (index > -1) {
         return title.substring(0, index).trim();
     } else {
