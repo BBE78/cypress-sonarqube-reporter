@@ -169,14 +169,15 @@ This `Cypress.spec` object is only available since Cypress v3.0.2 (see [Cypress 
 To avoid suite title pollution in other reporters (like the great [mochawesome](https://github.com/adamgruber/mochawesome#mochawesome)), make sure that `cypress-sonarqube-reporter` is the first one in the list.
 
 ## Reporter Options
-| Name               | Type      | Default    | Description |
-| ------------------ | --------- | ---------- | ----------- |
-| `outputDir`        | `string`  | `"./dist"` | folder name for the generated SonarQube XML reports, will be automatically created if not exist |
-| `preserveSpecsDir` | `boolean` | `true`     | specify if tests folders structure should be preserved |
-| `overwrite`        | `boolean` | `false`    | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist |
-| `prefix`           | `string`  | `""`       | file prefix for the generated SonarQube XML reports |
-| `useFullTitle`     | `boolean` | `true`     | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
-| `titleSeparator`   | `string`  | `" - "`    | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
+| Name                  | Type      | Default    | Description |
+| --------------------- | --------- | ---------- | ----------- |
+| `outputDir`           | `string`  | `"./dist"` | folder name for the generated SonarQube XML reports, will be automatically created if not exist |
+| `preserveSpecsDir`    | `boolean` | `true`     | specify if tests folders structure should be preserved |
+| `overwrite`           | `boolean` | `false`    | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist |
+| `prefix`              | `string`  | `""`       | file prefix for the generated SonarQube XML reports |
+| `useFullTitle`        | `boolean` | `true`     | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
+| `titleSeparator`      | `string`  | `" - "`    | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
+| `useAbsoluteSpecPath` | `boolean` | `false`    | specify if the absolute path of a spec file should be written to the report |
 
 ## Issues & Enhancements
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
