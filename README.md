@@ -36,6 +36,7 @@ This reporter has been tested with the following Cypress versions :
 *   **v3.7.0**: assuming that it should work with v3.x versions
 *   **v4.0.1**: assuming that it should work with (at least) v4.0.x versions
 *   **v4.1.0**: assuming that it should work with (at least) v4.1.x versions
+*   **v4.8.0**: assuming that it should work with (at least) v4.8.x versions
 
 ## Example
 The following Cypress/Mocha spec...

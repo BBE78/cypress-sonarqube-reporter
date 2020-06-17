@@ -79,7 +79,7 @@ const verifyGeneratedReport = (path, separator, fullTitle) => {
     expect(json.testExecutions.file.testCase[i].error).toBeDefined();
     expect(json.testExecutions.file.testCase[i].error._message).toStartWith("TypeError: Cannot read property 'toString' of undefined");
     expect(json.testExecutions.file.testCase[i].error.text).toStartWith("TypeError: Cannot read property 'toString' of undefined");
-    expect(json.testExecutions.file.testCase[i].error.text).toInclude("Because this error occurred during a 'before");
+    expect(json.testExecutions.file.testCase[i].error.text).toInclude("Because this error occurred during a `before");
     expect(json.testExecutions.file.testCase[i].error.text).toInclude(" at ");
 };
 
