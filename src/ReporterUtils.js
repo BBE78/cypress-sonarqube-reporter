@@ -29,14 +29,21 @@ const error = (message) => {
  * Raise an error if the spec could not be extracted.
  *
  * @param {object} suite the Mocha suite
+ * @param {object} options the Reporter Options
  * @returns {string} the spec file path
  */
-const extractSpecFromSuite = (suite) => {
+const extractSpecFromSuite = (suite, options) => {
     const title = suite.title;
     const tag = "[@spec: ";
     const index = title.indexOf(tag);
     if (index > -1) {
-        return title.substring(index + tag.length, title.lastIndexOf("]")).replace(/\\/g, "/");
+        let spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf("]")));
+
+        if (options.useAbsoluteSpecPath) {
+            return spec.absolute.replace(/\\/g, "/");
+        } else {
+            return spec.relative.replace(/\\/g, "/");
+        }
     } else {
         const err = `could not find spec filename from title: ${title}`;
         error(err);

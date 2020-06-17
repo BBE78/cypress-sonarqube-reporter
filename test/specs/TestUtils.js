@@ -1,6 +1,7 @@
 
 const fse = require("fs-extra");
 const parser = require("fast-xml-parser");
+const rimraf = require("rimraf");
 
 
 const createFile = (path, content) => {
@@ -12,7 +13,7 @@ const readFile = (path) => {
 }
 
 const cleanOuputDir = (dir) => {
-    fse.rmdirSync(dir, { recursive: true });
+    rimraf.sync(dir);
 };
 
 const verifyReportExists = (path) => {
