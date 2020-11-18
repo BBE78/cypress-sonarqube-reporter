@@ -1,6 +1,6 @@
 
 module.exports = {
-    noExit: false,
+    quiet: true,
     configFile: false,
     config: {
         integrationFolder: "test/cypress/integration",
@@ -10,6 +10,7 @@ module.exports = {
         screenshotsFolder: "dist/cypress/screenshots",
         videosFolder: "dist/cypress/videos",
         video: false,
+        screenshotOnRunFailure: false,
         trashAssetsBeforeRuns: false
     },
     reporter: "../index.js",

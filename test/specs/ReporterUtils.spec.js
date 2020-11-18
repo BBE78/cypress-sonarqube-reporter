@@ -237,16 +237,15 @@ describe("Testing ReporterUtils.js", () => {
         });
 
         it("nominal", () => {
-            return writeFile(specFile, "hello world", {
+            writeFile(specFile, "hello world", {
                 outputDir: outputDir,
                 prefix: "",
                 preserveSpecsDir: true,
                 overwrite: true
-            }).then(() => {
-                verifyReportExists(path);
-                const data = readFile(path);
-                expect(data).toBe("hello world");
             });
+            verifyReportExists(path);
+            const data = readFile(path);
+            expect(data).toBe("hello world");
         });
 
         it("with option(s): overwrite=false", () => {

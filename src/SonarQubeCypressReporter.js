@@ -68,9 +68,10 @@ class SonarQubeCypressReporter {
     traverseSuite(node, suite) {
 
         if (suite.parent && suite.parent.root) {
-            this.specFilename = extractSpecFromSuite(suite, this.options);
+            this.specFilename = extractSpecFromSuite(suite, { useAbsoluteSpecPath: false });
+            const specFilePath = extractSpecFromSuite(suite, this.options);
             suite.title = extractTitleFromSuite(suite);
-            node.attribute("path", this.specFilename);
+            node.attribute("path", specFilePath);
         }
 
         suite.tests.forEach((test) => {

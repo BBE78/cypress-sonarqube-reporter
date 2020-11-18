@@ -1,7 +1,9 @@
-
 const fse = require("fs-extra");
 const parser = require("fast-xml-parser");
+const { resolve } = require("path");
 const rimraf = require("rimraf");
+
+const cypressDefaultConfig = require("./CypressDefaultConfig");
 
 
 const createFile = (path, content) => {
@@ -20,9 +22,13 @@ const verifyReportExists = (path) => {
     expect(fse.existsSync(path)).toBeTruthy();
 };
 
-const verifyGeneratedReport = (path, separator, fullTitle) => {
-    const titleSeparator = separator || " - ";
-    const useFullTitle = (fullTitle !== undefined) ? fullTitle : true;
+const overwriteConfig = (config) => {
+    return Object.assign({}, cypressDefaultConfig, config);
+};
+
+const verifyGeneratedReport = (path, options) => {
+    const titleSeparator = (options && options.titleSeparator) ? options.titleSeparator : " - ";
+    const useFullTitle = (options && options.useFullTitle == false) ? false : true;
     const xml = fse.readFileSync(path, { encoding: "utf8" });
     const json = parser.parse(xml, {
         ignoreAttributes: false,
@@ -35,7 +41,7 @@ const verifyGeneratedReport = (path, separator, fullTitle) => {
     expect(json.testExecutions).toBeDefined();
     expect(json.testExecutions._version).toBe(1);
     expect(json.testExecutions.file).toBeDefined();
-    expect(json.testExecutions.file._path).toBe("test/cypress/integration/Sample.spec.js");
+    expect(json.testExecutions.file._path).toBe((options && options.useAbsoluteSpecPath) ? resolve("test/cypress/integration/Sample.spec.js").replace(/\\/g, "/") : "test/cypress/integration/Sample.spec.js");
     expect(json.testExecutions.file.testCase).toBeDefined();
     expect(json.testExecutions.file.testCase).toBeArray();
     expect(json.testExecutions.file.testCase).toBeArrayOfSize(6);
@@ -86,6 +92,7 @@ const verifyGeneratedReport = (path, separator, fullTitle) => {
 module.exports = {
     cleanOuputDir,
     createFile,
+    overwriteConfig,
     readFile,
     verifyReportExists,
     verifyGeneratedReport

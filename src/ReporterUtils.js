@@ -38,12 +38,8 @@ const extractSpecFromSuite = (suite, options) => {
     const index = title.indexOf(tag);
     if (index > -1) {
         let spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf("]")));
-
-        if (options.useAbsoluteSpecPath) {
-            return spec.absolute.replace(/\\/g, "/");
-        } else {
-            return spec.relative.replace(/\\/g, "/");
-        }
+        spec = options.useAbsoluteSpecPath ? spec.absolute : spec.relative;
+        return spec.replace(/\\/g, "/");
     } else {
         const err = `could not find spec filename from title: ${title}`;
         error(err);
@@ -139,17 +135,17 @@ const formatTest = (node, test, options) => {
  */
 const writeFile = (specFilename, data, options) => {
     const specFilePath = (options.preserveSpecsDir) ? specFilename : path.basename(specFilename);
-    const file = path.resolve(options.outputDir, `${options.prefix}${specFilePath}.xml`);
+    const file = path.resolve(options.outputDir, path.dirname(specFilePath), `${options.prefix}${path.basename(specFilePath)}.xml`);
     if (!options.overwrite && fse.existsSync(file)) {
-        return error(`the reporter "${file}" already exists`);
+        error(`the reporter "${file}" already exists`);
     } else {
-        return fse.outputFile(file, data, "utf8")
-            .then(() => {
-                info(`report saved to "${file}"`);
-            })
-            .catch((err) => {
-                error(`could not write file "${file}": ${err}`);
-            });
+        try {
+            fse.outputFileSync(file, data, "utf8");
+            info(`report saved to "${file}"`);
+        } catch(err) {
+            error(`could not write file "${file}": ${err}`);
+            throw err;
+        }
     }
 };
 

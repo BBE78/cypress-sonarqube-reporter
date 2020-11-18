@@ -5,6 +5,7 @@ const cypressDefaultConfig = require("./CypressDefaultConfig");
 const {
     cleanOuputDir,
     createFile,
+    overwriteConfig,
     readFile,
     verifyReportExists,
     verifyGeneratedReport
@@ -18,38 +19,73 @@ describe("Testing reporter", () => {
 
     describe("with default options", () => {
 
+        const testDir = "test";
+
         beforeAll(() => {
-            cleanOuputDir("dist/test");
+            cleanOuputDir(`dist/${testDir}`);
         });
 
         test("running Cypress", () => {
             return cypress.run(cypressDefaultConfig).then(() => {
-                const path = "dist/test/cypress/integration/Sample.spec.js.xml";
+                const path = `dist/${testDir}/cypress/integration/Sample.spec.js.xml`;
                 verifyReportExists(path);
                 verifyGeneratedReport(path);
+            }).catch(err => {
+                throw err;
             });
         }, cypressRunTimeout);
     });
 
     describe("with option(s): preserveSpecsDir=false, prefix, titleSeparator", () => {
 
+        const testDir = "preserveFalse";
+
         beforeAll(() => {
-            cleanOuputDir("dist/preserve");
+            cleanOuputDir(`dist/${testDir}`);
         });
 
         test("running Cypress", () => {
-            const config = Object.assign(cypressDefaultConfig, {
+            const config = overwriteConfig({
                 reporterOptions: {
-                    outputDir: "dist/preserve",
+                    outputDir: `dist/${testDir}`,
                     preserveSpecsDir: false,
                     prefix: "myPrefix.",
                     titleSeparator: "|"
                 }
             });
             return cypress.run(config).then(() => {
-                const path = "dist/preserve/myPrefix.Sample.spec.js.xml";
+                const path = `dist/${testDir}/myPrefix.Sample.spec.js.xml`;
                 verifyReportExists(path);
-                verifyGeneratedReport(path, config.reporterOptions.titleSeparator);
+                verifyGeneratedReport(path, config.reporterOptions);
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+
+    });
+
+    describe("with option(s): preserveSpecsDir=true, prefix", () => {
+
+        const testDir = "preserveTrue";
+
+        beforeAll(() => {
+            cleanOuputDir(`dist/${testDir}`);
+        });
+
+        test("running Cypress", () => {
+            const config = overwriteConfig({
+                reporterOptions: {
+                    outputDir: `dist/${testDir}`,
+                    preserveSpecsDir: true,
+                    prefix: "myPrefix."
+                }
+            });
+            return cypress.run(config).then(() => {
+                const path = `dist/${testDir}/test/cypress/integration/myPrefix.Sample.spec.js.xml`;
+                verifyReportExists(path);
+                verifyGeneratedReport(path, config.reporterOptions);
+            }).catch(err => {
+                throw err;
             });
         }, cypressRunTimeout);
 
@@ -57,21 +93,51 @@ describe("Testing reporter", () => {
 
     describe("with option(s): useFullTitle=false", () => {
 
+        const testDir = "useFullTitleFalse";
+
         beforeAll(() => {
-            cleanOuputDir("dist/useFullTitle");
+            cleanOuputDir(`dist/${testDir}`);
         });
 
         test("running Cypress", () => {
-            const config = Object.assign(cypressDefaultConfig, {
+            const config = overwriteConfig({
                 reporterOptions: {
-                    outputDir: "dist/useFullTitle",
+                    outputDir: `dist/${testDir}`,
                     useFullTitle: false
                 }
             });
             return cypress.run(config).then(() => {
-                const path = "dist/useFullTitle/test/cypress/integration/Sample.spec.js.xml";
+                const path = `dist/${testDir}/test/cypress/integration/Sample.spec.js.xml`;
                 verifyReportExists(path);
-                verifyGeneratedReport(path, config.reporterOptions.titleSeparator, config.reporterOptions.useFullTitle);
+                verifyGeneratedReport(path, config.reporterOptions);
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+
+    });
+
+    describe("with option(s): useAbsoluteSpecPath=true", () => {
+
+        const testDir = "useAbsoluteSpecPathTrue";
+
+        beforeAll(() => {
+            cleanOuputDir(`dist/${testDir}`);
+        });
+
+        test("running Cypress", () => {
+            const config = overwriteConfig({
+                reporterOptions: {
+                    outputDir: `dist/${testDir}`,
+                    useAbsoluteSpecPath: true
+                }
+            });
+            return cypress.run(config).then(() => {
+                const path = `dist/${testDir}/test/cypress/integration/Sample.spec.js.xml`;
+                verifyReportExists(path);
+                verifyGeneratedReport(path, config.reporterOptions);
+            }).catch(err => {
+                throw err;
             });
         }, cypressRunTimeout);
 
@@ -87,7 +153,7 @@ describe("Testing reporter", () => {
         });
 
         test("running Cypress", () => {
-            const config = Object.assign(cypressDefaultConfig, {
+            const config = overwriteConfig({
                 reporterOptions: {
                     outputDir: "dist/overwriteFalse",
                     overwrite: false,
@@ -113,7 +179,7 @@ describe("Testing reporter", () => {
         });
 
         test("running Cypress", () => {
-            const config = Object.assign(cypressDefaultConfig, {
+            const config = overwriteConfig({
                 reporterOptions: {
                     outputDir: "dist/overwriteTrue",
                     overwrite: true,
@@ -122,7 +188,9 @@ describe("Testing reporter", () => {
             });
             return cypress.run(config).then(() => {
                 verifyReportExists(path);
-                verifyGeneratedReport(path);
+                verifyGeneratedReport(path, config.reporterOptions);
+            }).catch(err => {
+                throw err;
             });
         }, cypressRunTimeout);
 
@@ -135,7 +203,7 @@ describe("Testing reporter", () => {
         });
 
         test("running Cypress", () => {
-            const config = Object.assign(cypressDefaultConfig, {
+            const config = overwriteConfig({
                 reporter: "cypress-multi-reporters",
                 reporterOptions: {
                     reporterEnabled: "mochawesome, mocha-sonarqube-reporter",
@@ -158,7 +226,9 @@ describe("Testing reporter", () => {
             return cypress.run(config).then(() => {
                 const path = "dist/multi/test/cypress/integration/Sample.spec.js.xml";
                 verifyReportExists(path);
-                verifyGeneratedReport(path);
+                verifyGeneratedReport(path, config.reporterOptions);
+            }).catch(err => {
+                throw err;
             });
         }, cypressRunTimeout);
 
