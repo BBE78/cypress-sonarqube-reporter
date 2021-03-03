@@ -185,6 +185,7 @@ To avoid suite title pollution in other reporters (like the great [mochawesome](
 ## Issues & Enhancements
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
 ![GitHub issues](https://img.shields.io/github/issues-closed-raw/BBE78/cypress-sonarqube-reporter)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter?ref=badge_shield)
 
 For any bugs, enhancements, or just questions feel free to use the [GitHub Issues](https://github.com/BBE78/cypress-sonarqube-reporter/issues)
 
@@ -192,3 +193,6 @@ For any bugs, enhancements, or just questions feel free to use the [GitHub Issue
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/cypress-io/cypress/blob/master/LICENSE)
 
 This project is licensed under the terms of the [MIT license](/LICENSE).
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter?ref=badge_large)
