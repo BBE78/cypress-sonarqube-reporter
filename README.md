@@ -9,6 +9,7 @@ Generated XML reports are compliant with <i>Generic Execution</i> described in <
 </p>
 <p align="center">
 	<a href="https://travis-ci.org/BBE78/cypress-sonarqube-reporter"><img src="https://travis-ci.org/BBE78/cypress-sonarqube-reporter.svg?branch=master"></a>
+	<a href="https://app.fossa.com/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter?ref=badge_shield"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter.svg?type=shield"></a>
 	<a href="https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/b72fd9184ead4b93801c213667e6db17"/></a>
 	<a href="https://www.codacy.com/manual/benoit_2/cypress-sonarqube-reporter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BBE78/cypress-sonarqube-reporter&amp;utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/b72fd9184ead4b93801c213667e6db17"/></a>
 	<a href="https://cypress.io"><img src="https://img.shields.io/badge/cypress.io-tests-green.svg" alt="cypress.io"></a>
@@ -185,7 +186,6 @@ To avoid suite title pollution in other reporters (like the great [mochawesome](
 ## Issues & Enhancements
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)
 ![GitHub issues](https://img.shields.io/github/issues-closed-raw/BBE78/cypress-sonarqube-reporter)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter?ref=badge_shield)
 
 For any bugs, enhancements, or just questions feel free to use the [GitHub Issues](https://github.com/BBE78/cypress-sonarqube-reporter/issues)
 
