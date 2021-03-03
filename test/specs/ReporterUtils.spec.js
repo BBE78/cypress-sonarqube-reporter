@@ -13,11 +13,36 @@ const {
     formatTest,
     formatTestTitle,
     formatSuiteTitle,
-    writeFile
+    writeFile,
+    hasSpecInTitle
 } = require("../../src/ReporterUtils");
 
 
 describe("Testing ReporterUtils.js", () => {
+
+    describe("hasSpecInTitle()", () => {
+
+        it("suite with simple title", () => {
+            const result = hasSpecInTitle({
+                title: "My title"
+            });
+            expect(result).toBe(false);
+        });
+
+        it("suite with title included @spec", () => {
+            const result = hasSpecInTitle({
+                title: 'My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]'
+            });
+            expect(result).toBe(true);
+        });
+
+        it("suite with undefine title", () => {
+            const result = hasSpecInTitle({
+            });
+            expect(result).toBe(false);
+        });
+
+    });
 
     describe("formatTestTitle()", () => {
 

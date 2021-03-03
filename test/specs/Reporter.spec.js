@@ -19,13 +19,10 @@ describe("Testing reporter", () => {
 
     describe("with default options", () => {
 
-        const testDir = "test";
-
-        beforeAll(() => {
-            cleanOuputDir(`dist/${testDir}`);
-        });
-
         test("running Cypress", () => {
+            const testDir = "test";
+            cleanOuputDir(`dist/${testDir}`);
+
             return cypress.run(cypressDefaultConfig).then(() => {
                 const path = `dist/${testDir}/cypress/integration/Sample.spec.js.xml`;
                 verifyReportExists(path);
@@ -34,6 +31,26 @@ describe("Testing reporter", () => {
                 throw err;
             });
         }, cypressRunTimeout);
+
+        test("running Cypress without spec title", () => {
+            const testDir = "testWithoutSpecTitle";
+            cleanOuputDir(`dist/${testDir}`);
+
+            const config = overwriteConfig({
+                reporterOptions: {
+                    outputDir: `dist/${testDir}`
+                }
+            });
+            config.integrationFolder = "test/cypress/integrationWithoutSpecTitle";
+            return cypress.run(config).then(() => {
+                const path = `dist/${testDir}/test/cypress/integration/Sample.spec.js.xml`;
+                verifyReportExists(path);
+                verifyGeneratedReport(path);
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+
     });
 
     describe("with option(s): preserveSpecsDir=false, prefix, titleSeparator", () => {
@@ -119,19 +136,36 @@ describe("Testing reporter", () => {
 
     describe("with option(s): useAbsoluteSpecPath=true", () => {
 
-        const testDir = "useAbsoluteSpecPathTrue";
-
-        beforeAll(() => {
-            cleanOuputDir(`dist/${testDir}`);
-        });
-
         test("running Cypress", () => {
+            const testDir = "useAbsoluteSpecPathTrue";
+            cleanOuputDir(`dist/${testDir}`);
+
             const config = overwriteConfig({
                 reporterOptions: {
                     outputDir: `dist/${testDir}`,
                     useAbsoluteSpecPath: true
                 }
             });
+            return cypress.run(config).then(() => {
+                const path = `dist/${testDir}/test/cypress/integration/Sample.spec.js.xml`;
+                verifyReportExists(path);
+                verifyGeneratedReport(path, config.reporterOptions);
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+
+        test("running Cypress without spec title", () => {
+            const testDir = "useAbsoluteSpecPathTrueWithoutSpecTitle";
+            cleanOuputDir(`dist/${testDir}`);
+
+            const config = overwriteConfig({
+                reporterOptions: {
+                    outputDir: `dist/${testDir}`,
+                    useAbsoluteSpecPath: true
+                }
+            });
+            config.integrationFolder = "test/cypress/integrationWithoutSpecTitle";
             return cypress.run(config).then(() => {
                 const path = `dist/${testDir}/test/cypress/integration/Sample.spec.js.xml`;
                 verifyReportExists(path);

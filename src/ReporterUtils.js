@@ -31,8 +31,8 @@ const error = (message) => {
  * @returns {boolean}
  */
 const hasSpecInTitle = function (suite){
-    return suite.title.indexOf("[@spec: ") !== -1;
-}
+    return suite.title ? suite.title.indexOf("[@spec: ") !== -1 : false;
+};
 
 /**
  * Extract the spec file path from the suite.
