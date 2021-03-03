@@ -25,6 +25,16 @@ const error = (message) => {
 };
 
 /**
+ * Check if tag @spec is in title
+ *
+ * @param {object} suite the Mocha suite
+ * @returns {boolean}
+ */
+const hasSpecInTitle = function (suite){
+    return suite.title.indexOf("[@spec: ") !== -1;
+}
+
+/**
  * Extract the spec file path from the suite.
  * Raise an error if the spec could not be extracted.
  *
@@ -155,5 +165,6 @@ module.exports = {
     formatTest,
     formatTestTitle,
     formatSuiteTitle,
-    writeFile
+    writeFile,
+    hasSpecInTitle
 };
