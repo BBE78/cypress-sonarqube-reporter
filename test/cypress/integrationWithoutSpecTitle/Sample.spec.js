@@ -1,6 +1,4 @@
-const specTitle = require("../../../specTitle");
-
-describe(specTitle("The root suite"), () => {
+describe("The root suite", () => {
 
     it("Test case #1 (must pass)", () => {
         expect(true).to.be.true;
