@@ -1,12 +1,12 @@
-/* eslint jest/expect-expect: ["error", { "assertFunctionNames": ["expect", "verifyReportExists"] }] */
+/* eslint jest/expect-expect: ['error', { 'assertFunctionNames': ['expect', 'verifyReportExists'] }] */
 
-const xmlbuilder = require("xmlbuilder");
+const xmlbuilder = require('xmlbuilder');
 const {
     cleanOuputDir,
     createFile,
     readFile,
     verifyReportExists
-} = require("./TestUtils");
+} = require('./TestUtils');
 const {
     extractSpecFromSuite,
     extractTitleFromSuite,
@@ -14,245 +14,245 @@ const {
     formatTestTitle,
     formatSuiteTitle,
     writeFile
-} = require("../../src/ReporterUtils");
+} = require('../../src/ReporterUtils');
 
 
-describe("Testing ReporterUtils.js", () => {
+describe('Testing ReporterUtils.js', () => {
 
-    describe("formatTestTitle()", () => {
+    describe('formatTestTitle()', () => {
 
-        it("simple test", () => {
+        it('simple test', () => {
             const result = formatTestTitle({
-                title: "My title"
+                title: 'My title'
             }, {
                 useFullTitle: true
             });
-            expect(result).toBe("My title");
+            expect(result).toBe('My title');
         });
 
-        it("within a suite", () => {
+        it('within a suite', () => {
             const result = formatTestTitle({
-                title: "My title",
+                title: 'My title',
                 parent: {
-                    title: "My suite"
+                    title: 'My suite'
                 }
             }, {
                 useFullTitle: true,
-                titleSeparator: " | "
+                titleSeparator: ' | '
             });
-            expect(result).toBe("My suite | My title");
+            expect(result).toBe('My suite | My title');
         });
 
     });
 
-    describe("formatSuiteTitle()", () => {
+    describe('formatSuiteTitle()', () => {
 
-        it("simple suite", () => {
+        it('simple suite', () => {
             const result = formatSuiteTitle({
-                title: "My suite"
+                title: 'My suite'
             }, {
                 useFullTitle: true
             });
-            expect(result).toBe("My suite");
+            expect(result).toBe('My suite');
         });
 
-        it("within a suite", () => {
+        it('within a suite', () => {
             const result = formatSuiteTitle({
-                title: "My suite",
+                title: 'My suite',
                 parent: {
-                    title: "My parent suite"
+                    title: 'My parent suite'
                 }
             }, {
                 useFullTitle: true,
-                titleSeparator: " --> "
+                titleSeparator: ' --> '
             });
-            expect(result).toBe("My parent suite --> My suite");
+            expect(result).toBe('My parent suite --> My suite');
         });
 
-        it("within a suite with empty title", () => {
+        it('within a suite with empty title', () => {
             const result = formatSuiteTitle({
-                title: "My suite",
+                title: 'My suite',
                 parent: {
-                    title: ""
+                    title: ''
                 }
             }, {
                 useFullTitle: true,
-                titleSeparator: " --> "
+                titleSeparator: ' --> '
             });
-            expect(result).toBe("My suite");
+            expect(result).toBe('My suite');
         });
 
     });
 
-    describe("extractSpecFromSuite()", () => {
+    describe('extractSpecFromSuite()', () => {
 
-        it("nominal", () => {
+        it('nominal', () => {
             const result = extractSpecFromSuite({
-                title: 'My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]'
+                title: 'My title [@spec: {"relative":"test/Sample.spec.js","absolute":"/builds/group/project/test/Sample.spec.js"}]'
             }, {
                 useAbsoluteSpecPath: false
             });
-            expect(result).toBe("test/Sample.spec.js");
+            expect(result).toBe('test/Sample.spec.js');
         });
 
-        it("with absolute spec file option", () => {
+        it('with absolute spec file option', () => {
             const result = extractSpecFromSuite({
-                title: "My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]"
+                title: 'My title [@spec: {"relative":"test/Sample.spec.js","absolute":"/builds/group/project/test/Sample.spec.js"}]'
             }, {
                 useAbsoluteSpecPath: true
             });
-            expect(result).toBe("/builds/group/project/test/Sample.spec.js");
+            expect(result).toBe('/builds/group/project/test/Sample.spec.js');
         });
 
-        it("with spec in title", () => {
+        it('with spec in title', () => {
             expect(() => {
                 extractSpecFromSuite({
-                    title: "My title"
+                    title: 'My title'
                 }, {
                     useAbsoluteSpecPath: false
                 });
-            }).toThrowError("could not find spec filename from title: My title");
+            }).toThrowError('could not find spec filename from title: My title');
         });
 
     });
 
-    describe("extractTitleFromSuite()", () => {
+    describe('extractTitleFromSuite()', () => {
 
-        it("nominal", () => {
+        it('nominal', () => {
             const result = extractTitleFromSuite({
-                title: "My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]"
+                title: 'My title [@spec: {"relative":"test/Sample.spec.js","absolute":"/builds/group/project/test/Sample.spec.js"}]'
             });
-            expect(result).toBe("My title");
+            expect(result).toBe('My title');
         });
 
-        it("without spec in title", () => {
+        it('without spec in title', () => {
             const result = extractTitleFromSuite({
-                title: "My title"
+                title: 'My title'
             });
-            expect(result).toBe("My title");
+            expect(result).toBe('My title');
         });
 
     });
 
-    describe("formatTest()", () => {
+    describe('formatTest()', () => {
 
         let node;
 
         beforeEach(() => {
-            node = xmlbuilder.create("root");
+            node = xmlbuilder.create('root');
         });
 
-        it("passed test", () => {
+        it('passed test', () => {
             formatTest(node, {
-                title: "My test",
-                state: "passed",
+                title: 'My test',
+                state: 'passed',
                 duration: 123
             }, {
                 useFullTitle: true
             });
             const result = node.end();
-            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"/></root>");
+            expect(result).toBe('<?xml version="1.0"?><root><testCase name="My test" duration="123"/></root>');
         });
 
-        it("pending test", () => {
+        it('pending test', () => {
             formatTest(node, {
-                title: "My test",
-                state: "pending",
+                title: 'My test',
+                state: 'pending',
                 duration: 123
             }, {
                 useFullTitle: true
             });
             const result = node.end();
-            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><skipped message=\"skipped test\"/></testCase></root>");
+            expect(result).toBe('<?xml version="1.0"?><root><testCase name="My test" duration="123"><skipped message="skipped test"/></testCase></root>');
         });
 
-        it("skipped test", () => {
+        it('skipped test', () => {
             formatTest(node, {
-                title: "My test",
-                state: "skipped",
+                title: 'My test',
+                state: 'skipped',
                 duration: 123
             }, {
                 useFullTitle: true
             });
             const result = node.end();
-            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><skipped message=\"An error occurred during a hook and remaining tests in the current suite are skipped\"/></testCase></root>");
+            expect(result).toBe('<?xml version="1.0"?><root><testCase name="My test" duration="123"><skipped message="An error occurred during a hook and remaining tests in the current suite are skipped"/></testCase></root>');
         });
 
-        it("failed test", () => {
+        it('failed test', () => {
             formatTest(node, {
-                title: "My test",
-                state: "failed",
+                title: 'My test',
+                state: 'failed',
                 duration: 123,
                 err: {
-                    name: "AssertionError",
-                    message: "the error",
-                    stack: "the full stack here"
+                    name: 'AssertionError',
+                    message: 'the error',
+                    stack: 'the full stack here'
                 }
             }, {
                 useFullTitle: true
             });
             const result = node.end();
-            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><failure message=\"AssertionError: the error\"><![CDATA[the full stack here]]></failure></testCase></root>");
+            expect(result).toBe('<?xml version="1.0"?><root><testCase name="My test" duration="123"><failure message="AssertionError: the error"><![CDATA[the full stack here]]></failure></testCase></root>');
         });
 
-        it("error test", () => {
+        it('error test', () => {
             formatTest(node, {
-                title: "My test",
-                state: "failed",
+                title: 'My test',
+                state: 'failed',
                 duration: 123,
                 err: {
-                    name: "SomethingElseError",
-                    message: "the error",
-                    stack: "the full stack here"
+                    name: 'SomethingElseError',
+                    message: 'the error',
+                    stack: 'the full stack here'
                 }
             }, {
                 useFullTitle: true
             });
             const result = node.end();
-            expect(result).toBe("<?xml version=\"1.0\"?><root><testCase name=\"My test\" duration=\"123\"><error message=\"SomethingElseError: the error\"><![CDATA[the full stack here]]></error></testCase></root>");
+            expect(result).toBe('<?xml version="1.0"?><root><testCase name="My test" duration="123"><error message="SomethingElseError: the error"><![CDATA[the full stack here]]></error></testCase></root>');
         });
 
-        it("unknown test state", () => {
+        it('unknown test state', () => {
             expect(() => {
                 formatTest(node, {
-                    title: "My test",
-                    state: "something"
+                    title: 'My test',
+                    state: 'something'
                 }, {
                     useFullTitle: true
                 });
-            }).toThrowError("unknown test state: something");
+            }).toThrowError('unknown test state: something');
         });
 
     });
 
-    describe("writeFile()", () => {
+    describe('writeFile()', () => {
 
-        const outputDir = "dist/temp";
-        const specFile = "test/Sample.spec.js";
+        const outputDir = 'dist/test';
+        const specFile = 'temp/Sample.spec.js';
         const path = `${outputDir}/${specFile}.xml`;
 
         beforeEach(() => {
             cleanOuputDir(outputDir);
-            createFile(path, "should not be overwritten");
+            createFile(path, 'should not be overwritten');
         });
 
-        it("nominal", () => {
-            writeFile(specFile, "hello world", {
+        it('nominal', () => {
+            writeFile(specFile, 'hello world', {
                 outputDir: outputDir,
-                prefix: "",
+                prefix: '',
                 preserveSpecsDir: true,
                 overwrite: true
             });
             verifyReportExists(path);
             const data = readFile(path);
-            expect(data).toBe("hello world");
+            expect(data).toBe('hello world');
         });
 
-        it("with option(s): overwrite=false", () => {
+        it('with option(s): overwrite=false', () => {
             try {
-                writeFile(specFile, "hello world", {
+                writeFile(specFile, 'hello world', {
                     outputDir: outputDir,
-                    prefix: "",
+                    prefix: '',
                     preserveSpecsDir: true,
                     overwrite: false
                 });
@@ -261,7 +261,7 @@ describe("Testing ReporterUtils.js", () => {
                 verifyReportExists(path);
                 const data = readFile(path);
                 // eslint-disable-next-line jest/no-try-expect
-                expect(data).toBe("should not be overwritten");
+                expect(data).toBe('should not be overwritten');
             }
     });
 

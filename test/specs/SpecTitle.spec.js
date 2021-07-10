@@ -1,15 +1,15 @@
 
-const specTitle = require("../../specTitle");
+const specTitle = require('../../specTitle');
 
-describe("Testing specTitle.js", () => {
+describe('Testing specTitle.js', () => {
 
-    describe("with Cypress defined", () => {
+    describe('with Cypress defined', () => {
 
         beforeEach(() => {
             global.Cypress = {
                 spec: {
-                    relative: "test/Sample.spec.js",
-                    absolute: "/builds/group/project/test/Sample.spec.js"
+                    relative: 'test/Sample.spec.js',
+                    absolute: '/builds/group/project/test/Sample.spec.js'
                 }
             };
         });
@@ -18,55 +18,55 @@ describe("Testing specTitle.js", () => {
             delete global.Cypress;
         });
 
-        test("nominal", () => {
-            const result = specTitle("My title");
-            expect(result).toBe("My title [@spec: {\"relative\":\"test/Sample.spec.js\",\"absolute\":\"/builds/group/project/test/Sample.spec.js\"}]");
+        test('nominal', () => {
+            const result = specTitle('My title');
+            expect(result).toBe('My title [@spec: {"relative":"test/Sample.spec.js","absolute":"/builds/group/project/test/Sample.spec.js"}]');
         });
 
-        test("with undefined", () => {
+        test('with undefined', () => {
             const result = specTitle();
             expect(result).toBeUndefined();
         });
 
     });
 
-    describe("without Cypress", () => {
+    describe('without Cypress', () => {
 
         beforeEach(() => {
             delete global.Cypress;
         });
 
-        test("without Cypress defined", () => {
+        test('without Cypress defined', () => {
             expect(() => {
-                specTitle("My title");
-            }).toThrowError("Cypress is not defined");
+                specTitle('My title');
+            }).toThrowError('Cypress is not defined');
         });
 
-        test("without Cypress.spec defined", () => {
+        test('without Cypress.spec defined', () => {
             global.Cypress = {};
             expect(() => {
-                specTitle("My title");
-            }).toThrowError("Cypress.spec is not defined, Cypress = {}");
+                specTitle('My title');
+            }).toThrowError('Cypress.spec is not defined, Cypress = {}');
         });
 
-        test("without Cypress.spec.relative defined", () => {
+        test('without Cypress.spec.relative defined', () => {
             global.Cypress = {
                 spec: {}
             };
             expect(() => {
-                specTitle("My title");
-            }).toThrowError("Cypress.spec.relative is not defined, Cypress.spec = {}");
+                specTitle('My title');
+            }).toThrowError('Cypress.spec.relative is not defined, Cypress.spec = {}');
         });
 
-        test("without Cypress.spec.absolute defined", () => {
+        test('without Cypress.spec.absolute defined', () => {
             global.Cypress = {
                 spec: {
-                    relative: "test/Sample.spec.js"
+                    relative: 'test/Sample.spec.js'
                 }
             };
             expect(() => {
-                specTitle("My title");
-            }).toThrowError("Cypress.spec.absolute is not defined, Cypress.spec = {\n    \"relative\": \"test/Sample.spec.js\"\n}");
+                specTitle('My title');
+            }).toThrowError('Cypress.spec.absolute is not defined, Cypress.spec = {\n    "relative": "test/Sample.spec.js"\n}');
         });
 
     });
