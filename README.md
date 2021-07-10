@@ -34,6 +34,7 @@ Other existing Mocha SonarQube reporters:
 
 ## Tested with Cypress
 This reporter has been tested with the following Cypress versions :
+*   **v7.7.0**: assuming that it should work with (at least) v7.7.x versions
 *   **v6.1.0**: assuming that it should work with (at least) v6.1.x versions
 *   **v5.1.0**: assuming that it should work with (at least) v5.1.x versions
 *   **v4.8.0**: assuming that it should work with (at least) v4.8.x versions

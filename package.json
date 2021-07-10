@@ -28,7 +28,7 @@
     "homepage": "https://github.com/BBE78/cypress-sonarqube-reporter#readme",
     "dependencies": {
         "colors": "^1.4.0",
-        "cypress": "^6.1.0",
+        "cypress": "^7.7.0",
         "fs-extra": "^9.0.1",
         "mocha": "^8.2.1",
         "xmlbuilder": "^15.1.1"
