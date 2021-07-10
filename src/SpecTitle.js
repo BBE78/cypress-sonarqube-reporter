@@ -1,23 +1,30 @@
+const _formatVar = (value) => {
+    return JSON.stringify(value, null, '    ');
+};
+
+const _specTitleFromSpec = (title, spec) => {
+
+    if (!spec.relative) {
+        throw new Error(`Cypress.spec.relative is not defined, Cypress.spec = ${_formatVar(spec)}`);
+    }
+
+    if (!spec.absolute) {
+        throw new Error(`Cypress.spec.absolute is not defined, Cypress.spec = ${_formatVar(spec)}`);
+    }
+
+    return `${title} [@spec: ${JSON.stringify(spec)}]`;
+};
 
 const specTitle = (title) => {
     if (title) {
         if (Cypress) {
             if (Cypress.spec) {
-
-                if (!Cypress.spec.relative) {
-                    throw `Cypress.spec.relative is not defined, Cypress.spec = ${JSON.stringify(Cypress.spec, null, 4)}`;
-                }
-
-                if (!Cypress.spec.absolute) {
-                    throw `Cypress.spec.absolute is not defined, Cypress.spec = ${JSON.stringify(Cypress.spec, null, 4)}`;
-                }
-
-                return `${title} [@spec: ${JSON.stringify(Cypress.spec)}]`;
+                return _specTitleFromSpec(title, Cypress.spec);
             } else {
-                throw `Cypress.spec is not defined, Cypress = ${JSON.stringify(Cypress, null, 4)}`;
+                throw new Error(`Cypress.spec is not defined, Cypress = ${_formatVar(Cypress)}`);
             }
         } else {
-            throw "Cypress is not defined";
+            throw new Error('Cypress is not defined');
         }
     } else {
         return title;
