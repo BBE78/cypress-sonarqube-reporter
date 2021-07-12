@@ -11,5 +11,5 @@ jobs:
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@1.0.0
         with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          api-token: ${{ secrets.CODACY_API_TOKEN }}
           coverage-reports: dist/reports/coverage/lcov.info
