@@ -4,11 +4,12 @@ on: ['push']
 
 jobs:
   codacy-coverage-reporter:
+    runs-on: ubuntu-latest
     name: codacy-coverage-reporter
     steps:
       - uses: actions/checkout@master
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@1.0.0
         with:
-          project-token: 0a3fe904aa76425c962e1a70f90483ef
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
           coverage-reports: dist/reports/coverage/lcov.info
