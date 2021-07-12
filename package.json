@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "clean": "rimraf dist",
-        "test": "npm run clean && jest --silent test/specs/ && npx cat dist/reports/coverage/lcov.info | codacy-coverage --token 0a3fe904aa76425c962e1a70f90483ef",
+        "test": "npm run clean && jest --silent test/specs/",
         "lint": "eslint --format json --output-file dist/reports/eslint-report.json src/** test/specs/**",
         "lint-md": "remark *.md .github/**/*.md",
         "sonar": "node sonar-project.js"

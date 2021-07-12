@@ -1,0 +1,14 @@
+name: codacy-coverage-reporter
+
+on: ['push']
+
+jobs:
+  codacy-coverage-reporter:
+    name: codacy-coverage-reporter
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@1.0.0
+        with:
+          project-token: 0a3fe904aa76425c962e1a70f90483ef
+          coverage-reports: dist/reports/coverage/lcov.info
