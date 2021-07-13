@@ -97,7 +97,7 @@ const verifyGeneratedReport = (path, options) => {
 
 const verifyReport = (path, config) => {
     verifyReportExists(path);
-    verifyGeneratedReport(path, config?.reporterOptions);
+    verifyGeneratedReport(path, config ? config.reporterOptions : undefined);
 };
 
 
