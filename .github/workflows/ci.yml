@@ -4,13 +4,19 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Building project
+    name: Building
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x, 14.x, 15.x]
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
+          
+      - name: Display Codacy API token
+        env:
+          CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+        run: echo "token=$CODACY_API_TOKEN"
       
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -23,11 +29,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./dist/reports/coverage/lcov.info
-          
-      - name: Display Codacy API token
-        env:
-          CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
-        run: echo $CODACY_API_TOKEN
         
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@master
