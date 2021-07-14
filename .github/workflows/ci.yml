@@ -9,15 +9,18 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 15.x]
+        cypress-version: [3.x, 4.x, 5.x, 6.x, 7.x]
     steps:
       - name: Checkout
         uses: actions/checkout@master
       
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Running Tests on Node v${{ matrix.node-version }} with Cypress v${{ matrix.cypress-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cypress-version: ${{ matrix.cypress-version }}
       - run: yarn --frozen-lockfile
+      - run: yarn add cypress@${{ matrix.cypress-version }}
       - run: yarn test
       
       - name: Upload Jest Test HTML Report
