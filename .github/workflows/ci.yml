@@ -12,11 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-          
-      - name: Display Codacy API token
-        env:
-          CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
-        run: echo "token=$CODACY_API_TOKEN"
       
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -25,10 +20,34 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn test
       
+      - name: Upload Jest Test HTML Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jest-html-report
+          path: ./dist/reports/jest/jest-report.html
+      
+      - name: Upload Test Coverage HTML Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-html-report
+          path: ./dist/reports/coverage
+          
+      - name: Report code coverage
+        uses: zgosalvez/github-actions-report-lcov@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          artifact-name: code-coverage-report
+          coverage-files: ./dist/reports/coverage/lcov.info
+        
       - uses: vebr/jest-lcov-reporter@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./dist/reports/coverage/lcov.info
+          
+      - name: Display Codacy API token
+        env:
+          MY_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+        run: echo token=$MY_TOKEN
         
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@master
