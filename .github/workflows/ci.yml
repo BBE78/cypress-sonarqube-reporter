@@ -1,4 +1,4 @@
-rname: Continuous Integration Build
+name: Continuous Integration Build
 
 on: [push, pull_request]
 
