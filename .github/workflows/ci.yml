@@ -44,7 +44,8 @@ jobs:
           MY_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
         run: echo token=$MY_TOKEN
         
-      #- name: Run Codacy Coverage Reporter
+      - name: Run Codacy Coverage Reporter
+        run: echo 'LCOV report should be sent to Codacy...'
         #uses: codacy/codacy-coverage-reporter-action@master
         #with:
         #  api-token: ${{ secrets.CODACY_API_TOKEN }}
