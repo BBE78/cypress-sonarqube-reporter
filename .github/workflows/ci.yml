@@ -10,7 +10,7 @@ jobs:
       matrix:
         node-version: [12.x, 14.x, 15.x]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
       
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -24,8 +24,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./dist/reports/coverage/lcov.info
           
+      - name: Display Codacy API token
+        env:
+          CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
+        run: echo $CODACY_API_TOKEN
+        
       - name: Run Codacy Coverage Reporter
-        uses: codacy/codacy-coverage-reporter-action@1.0.0
+        uses: codacy/codacy-coverage-reporter-action@master
         with:
           api-token: ${{ secrets.CODACY_API_TOKEN }}
           coverage-reports: ./dist/reports/coverage/lcov.info
