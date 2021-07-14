@@ -9,8 +9,13 @@ jobs:
       matrix:
         node-version: [10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x]
         cypress-version: [3.x, 4.x, 5.x, 6.x, 7.x]
+        exclude:
+          - node-version: 10.x
+            cypress-version: 7.x
+          - node-version: 11.x
+            cypress-version: 7.x
       fail-fast: false
-    name: Building with Node v${{ matrix.node-version }} & Cypress v${{ matrix.cypress-version }}
+    name: Building [Node v${{ matrix.node-version }} & Cypress v${{ matrix.cypress-version }}]
     steps:
       - name: Checkout
         uses: actions/checkout@master
