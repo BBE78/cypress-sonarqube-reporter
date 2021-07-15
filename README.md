@@ -33,8 +33,8 @@ Other existing Mocha SonarQube reporters:
 *   [mmouterde/mocha-sonarqube-reporter](https://github.com/mmouterde/mocha-sonarqube-reporter)
 
 ## Tested with Cypress
-Take a look at the Actions tests matrix results: tested with node [12.x, 14.x, 15.x, 16.x] and Cypress [4.x, 5.x, 6.x, 7.x]
-![Cypress Compatibility](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml/badge.svg)
+Take a look at the Actions tests matrix results: tested with Node.js v[12.x, 14.x, 15.x, 16.x] and Cypress v[4.x, 5.x, 6.x, 7.x]
+[![Cypress Compatibility](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml/badge.svg)](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml)
 
 ## Example
 The following Cypress/Mocha spec...
