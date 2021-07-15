@@ -125,7 +125,7 @@ In Node.js environnement, use your favorite command:
 
 ## Usage
 ### As a single Cypress reporter
-As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/reporters.html#Reporter-Options-1), single configuration:
+As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/reporters#Reporter-Options), single configuration:
 ```json
 // File: cypress.json
 {
@@ -137,7 +137,7 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 ```
 
 ### Using Cypress multiple reporters plugin
-As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/reporters.html#Multiple-Reporters), multi configuration:
+As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/reporters#Multiple-reporters), multi configuration:
 ```json
 // File: cypress.json
 {
