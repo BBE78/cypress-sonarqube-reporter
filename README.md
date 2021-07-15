@@ -33,14 +33,8 @@ Other existing Mocha SonarQube reporters:
 *   [mmouterde/mocha-sonarqube-reporter](https://github.com/mmouterde/mocha-sonarqube-reporter)
 
 ## Tested with Cypress
-This reporter has been tested with the following Cypress versions :
-*   **v7.7.0**: assuming that it should work with (at least) v7.7.x versions
-*   **v6.1.0**: assuming that it should work with (at least) v6.1.x versions
-*   **v5.1.0**: assuming that it should work with (at least) v5.1.x versions
-*   **v4.8.0**: assuming that it should work with (at least) v4.8.x versions
-*   **v4.1.0**: assuming that it should work with (at least) v4.1.x versions
-*   **v4.0.1**: assuming that it should work with (at least) v4.0.x versions
-*   **v3.7.0**: assuming that it should work with v3.x versions
+Take a look at the Actions tests matrix results: tested with node [12.x, 14.x, 15.x, 16.x] and Cypress [4.x, 5.x, 6.x, 7.x]
+![Cypress Compatibility](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml/badge.svg)
 
 ## Example
 The following Cypress/Mocha spec...
