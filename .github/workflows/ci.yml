@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 15.x, 16.x]
-        cypress-version: [4.x, 5.x, 6.x, 7.x]
+        cypress-version: [4.x, 5.x, 6.x, 7.x, 8.x, 9.x]
       fail-fast: false
     name: Building [Node v${{ matrix.node-version }} & Cypress v${{ matrix.cypress-version }}]
     steps:
