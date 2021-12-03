@@ -78,8 +78,12 @@ const verifyGeneratedReport = (path, options) => {
     expect(json.testExecutions.file.testCase[i]._name).toBe(useFullTitle ? `The root suite${titleSeparator}Another sub suite${titleSeparator}Test case #5 (must raise an error)` : 'Test case #5 (must raise an error)');
     expect(json.testExecutions.file.testCase[i]._duration).toBeGreaterThanOrEqual(0);
     expect(json.testExecutions.file.testCase[i].error).toBeDefined();
-    expect(json.testExecutions.file.testCase[i].error._message).toBe('TypeError: Cannot read property \'toString\' of undefined');
-    expect(json.testExecutions.file.testCase[i].error.text).toStartWith('TypeError: Cannot read property \'toString\' of undefined');
+    expect(json.testExecutions.file.testCase[i].error._message).toStartWith('TypeError: Cannot read propert');
+    expect(json.testExecutions.file.testCase[i].error._message).toInclude('\'toString\'');
+    expect(json.testExecutions.file.testCase[i].error._message).toInclude('undefined');
+    expect(json.testExecutions.file.testCase[i].error.text).toStartWith('TypeError: Cannot read propert');
+    expect(json.testExecutions.file.testCase[i].error.text).toInclude('\'toString\'');
+    expect(json.testExecutions.file.testCase[i].error.text).toInclude('undefined');
     expect(json.testExecutions.file.testCase[i].error.text).toIncludeMultiple([ ' at ' ]);
 
     expect(json.testExecutions.file.testCase[++i]).toBeDefined();
@@ -88,8 +92,12 @@ const verifyGeneratedReport = (path, options) => {
     //expect(json.testExecutions.file.testCase[i].skipped).toBeDefined();
     //expect(json.testExecutions.file.testCase[i].skipped._message).toBe('An error occurred during a hook and remaining tests in the current suite are skipped');
     expect(json.testExecutions.file.testCase[i].error).toBeDefined();
-    expect(json.testExecutions.file.testCase[i].error._message).toStartWith('TypeError: Cannot read property \'toString\' of undefined');
-    expect(json.testExecutions.file.testCase[i].error.text).toStartWith('TypeError: Cannot read property \'toString\' of undefined');
+    expect(json.testExecutions.file.testCase[i].error._message).toStartWith('TypeError: Cannot read propert');
+    expect(json.testExecutions.file.testCase[i].error._message).toInclude('\'toString\'');
+    expect(json.testExecutions.file.testCase[i].error._message).toInclude('undefined');
+    expect(json.testExecutions.file.testCase[i].error.text).toStartWith('TypeError: Cannot read propert');
+    expect(json.testExecutions.file.testCase[i].error.text).toInclude('\'toString\'');
+    expect(json.testExecutions.file.testCase[i].error.text).toInclude('undefined');
     expect(json.testExecutions.file.testCase[i].error.text).toInclude('Because this error occurred during a `before');
     expect(json.testExecutions.file.testCase[i].error.text).toInclude(' at ');
 };

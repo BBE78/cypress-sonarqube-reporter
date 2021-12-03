@@ -1,4 +1,4 @@
-const colors = require('colors');
+const chalk = require('chalk');
 const fse = require('fs-extra');
 const path = require('path');
 const pkg = require('../package.json');
@@ -11,7 +11,7 @@ const pkg = require('../package.json');
  */
 const info = (message) => {
     // eslint-disable-next-line no-console
-    console.info(`[${colors.grey(pkg.name)}] ${message}`);
+    console.info(`[${chalk.grey(pkg.name)}] ${message}`);
 };
 
 /**
@@ -21,7 +21,7 @@ const info = (message) => {
  */
 const error = (message) => {
     // eslint-disable-next-line no-console
-    console.error(`[${colors.red(pkg.name)}] ${message}`);
+    console.error(`[${chalk.red(pkg.name)}] ${message}`);
     throw new Error(message);
 };
 
