@@ -241,7 +241,7 @@ describe('Testing reporter', () => {
             return cypressMajorVersion >= majorVersion;
         };
 
-        const conditionalTest = isCypressVersionAtLeast(6) ? test : test.skpip;
+        const conditionalTest = isCypressVersionAtLeast(6) ? test : test.skip;
         const testDir = path.resolve(testOuputDir, 'multi-specs');
 
         beforeAll(() => {
