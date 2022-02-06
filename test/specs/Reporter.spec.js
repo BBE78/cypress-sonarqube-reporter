@@ -235,13 +235,15 @@ describe('Testing reporter', () => {
 
     describe('with multiple spec files', () => {
 
-        const isCypressVersionAtLeast = (majorVersion) => {
+        const isCypressVersionAtLeast = (majorVersion, minorVersion) => {
             const cypressVersion = require('cypress/package.json').version;
-            const cypressMajorVersion = parseInt(cypressVersion.split('.')[0]);
-            return cypressMajorVersion >= majorVersion;
+            const splitted = cypressVersion.split('.');
+            const cypressMajorVersion = parseInt(splitted[0]);
+            const cypressMinorVersion = parseInt(splitted[1]);
+            return (cypressMajorVersion >= majorVersion) && (cypressMinorVersion >= minorVersion);
         };
 
-        const conditionalTest = isCypressVersionAtLeast(6) ? test : test.skip;
+        const conditionalTest = isCypressVersionAtLeast(6, 2) ? test : test.skip;
         const testDir = path.resolve(testOuputDir, 'multi-specs');
 
         beforeAll(() => {

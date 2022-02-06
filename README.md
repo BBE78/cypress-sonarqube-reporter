@@ -171,7 +171,7 @@ To avoid suite title pollution in other reporters (like the great [mochawesome](
 ### Merging reports into a single report
 Since v1.10.0, you could merge all the generated reports into a single report. It could ease the configuration of your SonarQube analysis.
 
-This feature is only available on Cypress version >= 6, since the `after:run` plugin event does not exist on previous versions.
+This feature is only available on Cypress version >= 6.2.0, since the `after:run` plugin event does not exist on previous versions (see [Cypress changelog](https://docs.cypress.io/guides/references/changelog#6-2-0)).
 
 The merge operation has to be configured in Cypress plugins:
 ```javascript
