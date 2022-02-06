@@ -1,2 +1,2 @@
 
-module.exports = require("./src/SonarQubeCypressReporter");
+module.exports = require('./src/SonarQubeCypressReporter');

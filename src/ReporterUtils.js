@@ -150,10 +150,13 @@ const writeFile = (specFilename, data, options) => {
 };
 
 module.exports = {
+    DEFAULT_MERGED_FILE_NAME: 'cypress-sonarqube-reports.all.xml',
+    DEFAULT_OUTPUT_DIR: './dist',
     extractSpecFromSuite,
     extractTitleFromSuite,
     formatTest,
     formatTestTitle,
     formatSuiteTitle,
+    info,
     writeFile
 };

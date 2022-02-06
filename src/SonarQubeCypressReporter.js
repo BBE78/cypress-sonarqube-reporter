@@ -1,6 +1,7 @@
 const xmlbuilder = require('xmlbuilder');
 const Mocha = require('mocha');
 const {
+    DEFAULT_OUTPUT_DIR,
     extractSpecFromSuite,
     extractTitleFromSuite,
     formatTest,
@@ -15,7 +16,7 @@ const {
 
 // the default reporter options
 const defaultOptions = {
-    outputDir: './dist',
+    outputDir: DEFAULT_OUTPUT_DIR,
     preserveSpecsDir: true,
     overwrite: false,
     prefix: '',

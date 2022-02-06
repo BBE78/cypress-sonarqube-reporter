@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testExecutions version="1">
+  <file path="test/cypress/integration/Sample.spec.js">
+    <testCase name="The root suite - Test case #1 (must pass)" duration="32"/>
+    <testCase name="The root suite - A sub suite - Test case #2 (must pass)" duration="16"/>
+    <testCase name="The root suite - A sub suite - Test case #3 (must fail)" duration="19">
+      <failure message="AssertionError: expected true to be false"><![CDATA[AssertionError: expected true to be false
+    at Context.eval (http://localhost:62681/__cypress/tests?p=test\cypress\integration\Sample.spec.js:170:25)]]></failure>
+    </testCase>
+    <testCase name="The root suite - Another sub suite - Test case #4 (must be skipped)" duration="0">
+      <skipped message="skipped test"/>
+    </testCase>
+    <testCase name="The root suite - Another sub suite - Test case #5 (must raise an error)" duration="26">
+      <error message="TypeError: Cannot read properties of undefined (reading 'toString')"><![CDATA[TypeError: Cannot read properties of undefined (reading 'toString')
+    at Context.eval (http://localhost:62681/__cypress/tests?p=test\cypress\integration\Sample.spec.js:178:17)]]></error>
+    </testCase>
+    <testCase name="The root suite - A suite with a failed before hook - Test case #6 (must be skipped because of failed before hook)" duration="15">
+      <error message="TypeError: Cannot read properties of undefined (reading 'toString')&#xA;&#xA;Because this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `A suite with a failed befor...`"><![CDATA[TypeError: Cannot read properties of undefined (reading 'toString')
+
+Because this error occurred during a `before all` hook we are skipping the remaining tests in the current suite: `A suite with a failed befor...`
+    at Context.eval (http://localhost:62681/__cypress/tests?p=test\cypress\integration\Sample.spec.js:183:17)]]></error>
+    </testCase>
+  </file>
+</testExecutions>

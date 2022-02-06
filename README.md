@@ -158,9 +158,9 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 ### Spec files update
 The magic behind the scene is the use of `Cypress.spec` object (see [Cypress documentation](https://docs.cypress.io/api/cypress-api/spec.html#Syntax)) that is only available on spec files (ie not on reporter scope), so the drawback of this workaround is to use the function `specTitle(title: string)` from `specTitle.js` instead of the suite title:
 ```js
-const specTitle = require("cypress-sonarqube-reporter/specTitle");
+const specTitle = require('cypress-sonarqube-reporter/specTitle');
 
-describe(specTitle("The root suite"), () => {
+describe(specTitle('The root suite'), () => {
 	...
 });
 ```
@@ -168,16 +168,57 @@ This `Cypress.spec` object is only available since Cypress v3.0.2 (see [Cypress 
 
 To avoid suite title pollution in other reporters (like the great [mochawesome](https://github.com/adamgruber/mochawesome#mochawesome)), make sure that `cypress-sonarqube-reporter` is the first one in the list.
 
+### Merging reports into a single report
+Since v1.10.0, you could merge all the generated reports into a single report. It could ease the configuration of your SonarQube analysis.
+
+This feature is only available on Cypress version >= 6, since the `after:run` plugin event does not exist on previous versions.
+
+The merge operation has to be configured in Cypress plugins:
+```javascript
+// File: cypress/plugins/index.js
+module.exports = (on, config) => {
+    // https://docs.cypress.io/api/plugins/after-run-api
+    on('after:run', (results) => {
+		// /!\ don't forget to return the Promise /!\
+        return require('cypress-sonarqube-reporter/mergeReports')(results);
+    });
+};
+```
+or if you need to specify plugin's options:
+```javascript
+// File: cypress/plugins/index.js
+module.exports = (on, config) => {
+    // https://docs.cypress.io/api/plugins/after-run-api
+    on('after:run', (results) => {
+		// /!\ don't forget to return the Promise /!\
+        return require('cypress-sonarqube-reporter/mergeReports')(results, {
+			// see "Merge Plugin Options" section for all available options
+			mergeFileName: 'another-name.xml'
+		});
+    });
+};
+```
+
+
 ## Reporter Options
-| Name                  | Type      | Default    | Description |
-| --------------------- | --------- | ---------- | ----------- |
-| `outputDir`           | `string`  | `"./dist"` | folder name for the generated SonarQube XML reports, will be automatically created if not exist |
-| `preserveSpecsDir`    | `boolean` | `true`     | specify if tests folders structure should be preserved |
-| `overwrite`           | `boolean` | `false`    | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist |
-| `prefix`              | `string`  | `""`       | file prefix for the generated SonarQube XML reports |
-| `useFullTitle`        | `boolean` | `true`     | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
-| `titleSeparator`      | `string`  | `" - "`    | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
-| `useAbsoluteSpecPath` | `boolean` | `false`    | specify if the absolute path of a spec file should be written to the report |
+| Name                  | Type      | Default                               | Description |
+| --------------------- | --------- | ------------------------------------- | ----------- |
+| `outputDir`           | `string`  | `"./dist"`                            | folder name for the generated SonarQube XML reports, will be automatically created if not exist |
+| `preserveSpecsDir`    | `boolean` | `true`                                | specify if tests folders structure should be preserved |
+| `overwrite`           | `boolean` | `false`                               | specify if existing reporters could be overwritten; if `false` then an error is raised when reports already exist |
+| `prefix`              | `string`  | `""`                                  | file prefix for the generated SonarQube XML reports |
+| `useFullTitle`        | `boolean` | `true`                                | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
+| `titleSeparator`      | `string`  | `" - "`                               | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
+| `useAbsoluteSpecPath` | `boolean` | `false`                               | specify if the absolute path of a spec file should be written to the report |
+| `mergeOutputDir`      | `string`  | `<none>`                              | folder name for the merged SonarQube XML report, will be automatically created if not exist. If not specified, `outputDir` is used |
+| `mergeFileName`       | `string`  | `"cypress-sonarqube-reports.all.xml"` | merged SonarQube XML report name |
+
+## Merge Plugin Options
+| Name                  | Type      | Default                               | Description |
+| --------------------- | --------- | ------------------------------------- | ----------- |
+| `reportsOutputDir`    | `string`  | `"./dist"`                            | folder name for the generated SonarQube XML reports. If not specified, reporter options are used |
+| `mergeOutputDir`      | `string`  | `<none>`                              | folder name for the merged SonarQube XML report, will be automatically created if not exist. If not specified, `reportsOutputDir` is used |
+| `mergeFileName`       | `string`  | `"cypress-sonarqube-reports.all.xml"` | merged SonarQube XML report name |
 
 ## Issues & Enhancements
 ![GitHub issues](https://img.shields.io/github/issues-raw/BBE78/cypress-sonarqube-reporter)

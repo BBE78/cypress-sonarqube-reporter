@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testExecutions version="1">
+  <file path="test/cypress/integration/Another.spec.js">
+    <testCase name="Another root suite - Test case #1 (must pass)" duration="47"/>
+  </file>
+</testExecutions>
