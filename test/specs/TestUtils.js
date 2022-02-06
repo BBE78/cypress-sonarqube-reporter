@@ -34,7 +34,6 @@ const overwriteConfig = (config) => {
 const verifyGeneratedReport = (reportPath, options) => {
     const titleSeparator = (options && options.titleSeparator) ? options.titleSeparator : ' - ';
     const useFullTitle = (options && options.useFullTitle === false) ? false : true;
-    const specFilename = basename(reportPath).replace('.xml', '');
     const xml = fse.readFileSync(reportPath, { encoding: 'utf8' });
     const json = parser.parse(xml, {
         ignoreAttributes: false,
@@ -48,8 +47,8 @@ const verifyGeneratedReport = (reportPath, options) => {
     expect(json.testExecutions._version).toBe(1);
     expect(json.testExecutions.file).toBeDefined();
     expect(json.testExecutions.file._path).toBe((options && options.useAbsoluteSpecPath)
-        ? resolve(`test/cypress/integration/${specFilename}`).replace(/\\/g, '/')
-        : `test/cypress/integration/${specFilename}`);
+        ? resolve('test/cypress/integration/Sample.spec.js').replace(/\\/g, '/')
+        : 'test/cypress/integration/Sample.spec.js');
     expect(json.testExecutions.file.testCase).toBeDefined();
     expect(json.testExecutions.file.testCase).toBeArray();
     expect(json.testExecutions.file.testCase).toBeArrayOfSize(6);
