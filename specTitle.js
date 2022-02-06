@@ -1,2 +1,2 @@
 
-module.exports = require("./src/SpecTitle");
+module.exports = require('./src/SpecTitle');
