@@ -233,7 +233,7 @@ describe('Testing reporter', () => {
 
     });
 
-    describe.only('with multiple spec files', () => {
+    describe('with multiple spec files', () => {
 
         const isCypressVersionAtLeast = (majorVersion) => {
             const cypressVersion = require('cypress/package.json').version;
