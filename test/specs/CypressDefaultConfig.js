@@ -11,7 +11,8 @@ module.exports = {
         videosFolder: 'dist/cypress/videos',
         video: false,
         screenshotOnRunFailure: false,
-        trashAssetsBeforeRuns: false
+        trashAssetsBeforeRuns: false,
+        testFiles: '**/Sample.spec.js'
     },
     reporter: '../index.js',
 };

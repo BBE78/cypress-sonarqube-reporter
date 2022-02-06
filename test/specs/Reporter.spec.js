@@ -233,4 +233,29 @@ describe('Testing reporter', () => {
 
     });
 
+    describe.only('with multiple spec files', () => {
+
+        const testDir = path.resolve(testOuputDir, 'multi-specs');
+
+        beforeAll(() => {
+            cleanOuputDir(testDir);
+        });
+
+        test('running Cypress', () => {
+            const config = overwriteConfig({
+                reporterOptions: {
+                    outputDir: testDir
+                }
+            });
+            config.config.pluginsFile = 'test/cypress/plugins/index-with-merge.js';
+            config.config.testFiles = '**/*.spec.js';
+            return cypress.run(config).then(() => {
+                verifyReport(path.resolve(testDir, 'test/cypress/integration/Sample.spec.js.xml'), config);
+                verifyReportExists(path.resolve(testDir, 'test/cypress/integration/Another.spec.js.xml'));
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+    });
+
 });

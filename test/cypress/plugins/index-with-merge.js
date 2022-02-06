@@ -14,4 +14,9 @@
 module.exports = (on, config) => {
     // `on` is used to hook into various events Cypress emits
     // `config` is the resolved Cypress config
+
+    // https://docs.cypress.io/api/plugins/after-run-api
+    on('after:run', (results) => {
+        return require('../../../mergeReports')(results);
+    });
 };
