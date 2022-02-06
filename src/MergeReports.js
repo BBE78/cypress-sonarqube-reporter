@@ -24,6 +24,27 @@ const XML_PARSER_OPTIONS = {
 
 
 /**
+ * An implementation of JavaScript optional chaining for backward compatibility
+ * with Node.js < v14
+ *
+ * @param {Object} data
+ * @param  {...string} props
+ * @returns the value or undefined
+ */
+const optionalChaining = (data, ...props) => {
+    try {
+        let value = data;
+        for (const prop of props) {
+            value = value[prop];
+        }
+        return value;
+    } catch (err) {
+        return undefined;
+    }
+}
+
+
+/**
  * Write the JSON data into the specified output file path
  *
  * @param {Path} outputPath the path of the merged XML report
@@ -130,22 +151,23 @@ const mergeReportFiles = (outputPath, reportPaths) => {
  * Merge all SonarQube XML reports into a single XML report.
  *
  * @see https://docs.cypress.io/api/plugins/after-run-api
+ * @see https://docs.cypress.io/guides/guides/module-api#Results
  * @param {Object} results the Cypress run results
  * @param {Object} options the merge options
  * @returns {Promise} with the merged report path
  */
 const mergeReports = (results, options = {}) => {
-    const reportsOutputDir = options?.reportsOutputDir
-        || results?.config?.reporterOptions?.outputDir
-        || results?.config?.reporterOptions?.cypressSonarqubeReporterReporterOptions?.outputDir
+    const reportsOutputDir = optionalChaining(options, 'reportsOutputDir')
+        || optionalChaining(results, 'config', 'reporterOptions', 'outputDir')
+        || optionalChaining(results, 'config', 'reporterOptions', 'cypressSonarqubeReporterReporterOptions', 'outputDir')
         || DEFAULT_OUTPUT_DIR;
-    const mergeOutputDir = options?.mergeOutputDir
-        || results?.config?.reporterOptions?.mergeOutputDir
-        || results?.config?.reporterOptions?.cypressSonarqubeReporterReporterOptions?.mergeOutputDir
+    const mergeOutputDir = optionalChaining(options, 'mergeOutputDir')
+        || optionalChaining(results, 'config', 'reporterOptions', 'mergeOutputDir')
+        || optionalChaining(results, 'config', 'reporterOptions', 'cypressSonarqubeReporterReporterOptions', 'mergeOutputDir')
         || reportsOutputDir;
-    const mergeFileName = options?.mergeFileName
-        || results?.config?.reporterOptions?.mergeFileName
-        || results?.config?.reporterOptions?.cypressSonarqubeReporterReporterOptions?.mergeFileName
+    const mergeFileName = optionalChaining(options, 'mergeFileName')
+        || optionalChaining(results, 'config', 'reporterOptions', 'mergeFileName')
+        || optionalChaining(results, 'config', 'reporterOptions', 'cypressSonarqubeReporterReporterOptions', 'mergeFileName')
         || DEFAULT_MERGED_FILE_NAME;
     const reportsOutputPath = path.resolve(reportsOutputDir);
     const mergeOutputPath = path.resolve(mergeOutputDir);
