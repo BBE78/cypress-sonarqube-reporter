@@ -1,0 +1,9 @@
+{
+    "baseUrl": "http://localhost:3000/",
+    "video": false,
+    "screenshotsFolder": "dist/cypress/screenshots",
+    "reporter": "cypress-sonarqube-reporter",
+    "reporterOptions": {
+        "overwrite": true
+    }
+}

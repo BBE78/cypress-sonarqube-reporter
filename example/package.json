@@ -1,0 +1,46 @@
+{
+  "name": "cypress-sonarqube-reporter-sample",
+  "version": "1.0.0",
+  "description": "A sample that use the reporter, integrated with Cypress and SonarQube",
+  "author": "Benoît BERTHONNEAU",
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "start:c": "react-scripts -r @cypress/instrument-cra start",
+    "test": "cypress run",
+    "ci": "start-server-and-test start:c http://localhost:3000 test",
+    "sonar": "sonar-scanner -Dsonar.sources=src -Dsonar.tests=cypress/integration -Dsonar.testExecutionReportPaths=dist/cypress-sonarqube-reports.all.xml -Dsonar.javascript.lcov.reportPaths=dist/reports/coverage/lcov.info"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^3.9.12",
+    "@cypress/instrument-cra": "^1.4.0",
+    "cypress": "^9.4.1",
+    "cypress-sonarqube-reporter": "^1.10.0",
+    "react-scripts": "^5.0.0",
+    "sonarqube-scanner": "^2.8.1",
+    "start-server-and-test": "^1.14.0"
+  },
+  "nyc": {
+    "all": true,
+    "include": "src/**",
+    "temp-dir": "./dist/temp/.nyc_output",
+    "reporter": ["lcov"],
+    "report-dir": "./dist/coverage"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
