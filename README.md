@@ -248,5 +248,4 @@ For any bugs, enhancements, or just questions feel free to use the [GitHub Issue
 
 This project is licensed under the terms of the [MIT license](/LICENSE).
 
-
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FBBE78%2Fcypress-sonarqube-reporter?ref=badge_large)
