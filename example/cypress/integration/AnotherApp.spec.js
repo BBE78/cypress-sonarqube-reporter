@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 
 const specTitle = require('cypress-sonarqube-reporter/specTitle');
 

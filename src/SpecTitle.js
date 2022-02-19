@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 const _formatVar = (value) => {
     return JSON.stringify(value, null, '    ');
 };

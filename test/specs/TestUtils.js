@@ -1,6 +1,6 @@
 const fse = require('fs-extra');
 const parser = require('fast-xml-parser');
-const { basename, resolve } = require('path');
+const { resolve } = require('path');
 const rimraf = require('rimraf');
 
 const cypressDefaultConfig = require('./CypressDefaultConfig');

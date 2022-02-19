@@ -133,7 +133,7 @@ const mergeReportFiles = (outputPath, reportPaths) => {
                 info(`loading report ${reportPath}...`);
                 proms.push(loadReport(reportPath));
             }
-            Promise.all(proms).then(reportsAsJSON => {
+            Promise.all(proms).then((reportsAsJSON) => {
                 const mergedReportAsJSON = createReportAsJSON(reportsAsJSON);
                 writeMergedReport(outputPath, mergedReportAsJSON)
                     .then(resolve)
@@ -182,8 +182,8 @@ const mergeReports = (results, options = {}) => {
             fileFilter: ['!*.all.xml', '*.xml'],
             type: 'files',
             depth: 100
-        }).then(reports => {
-            mergeReportFiles(mergeFilePath, reports.map(file => file.fullPath))
+        }).then((reports) => {
+            mergeReportFiles(mergeFilePath, reports.map((file) => file.fullPath))
                 .then(resolve)
                 .catch(reject);
         }).catch(reject);

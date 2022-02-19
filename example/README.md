@@ -2,15 +2,16 @@
 
 ## Prerequisites
 
- - `yarn` is installed,
- - a SonarQube is running (at least a local one)
+-   `yarn` is installed,
+-   a SonarQube is running (at least a local one)
 
 ## Usage
 
 To see the reporter in action, clone (or download) this repo and execute the following commands:
- - `yarn install` install the project dependencies,
- - `yarn ci` start the webpack dev server (through react-scripts), wait for server to be ready, and run Cypress tests (with `cypress-sonarqube-reporter`). This command will failed because some tests intentionally failed (in order to see the result of all test status)
- - `yarn sonar` run a SonarQube analysis configured to take into account the `cypress-sonarqube-reporter` generated report(s).
+
+-   `yarn install` install the project dependencies,
+-   `yarn ci` start the webpack dev server (through react-scripts), wait for server to be ready, and run Cypress tests (with `cypress-sonarqube-reporter`). This command will failed because some tests intentionally failed (in order to see the result of all test status)
+-   `yarn sonar` run a SonarQube analysis configured to take into account the `cypress-sonarqube-reporter` generated report(s).
 
 You should see a new SonarQube project named `cypress-sonarqube-reporter-sample` with a dashboard that present unit tests execution and code coverage:
 
@@ -26,7 +27,6 @@ You should see a new SonarQube project named `cypress-sonarqube-reporter-sample`
 		</td>
 	</tr>
 </table>
-
 
 ## Explanations step by step
 
@@ -83,10 +83,10 @@ This step uses the [`sonarqube-scanner`](https://github.com/bellingard/sonar-sca
 
 ## Usefull links
 
- - [SonarQube Analysis Parameters](https://docs.sonarqube.org/latest/analysis/analysis-parameters/)
- - [SonarQube Test Coverage & Execution](https://docs.sonarqube.org/latest/analysis/coverage/)
- - [NPM module to run SonarQube/SonarCloud analyses](https://github.com/bellingard/sonar-scanner-npm)
- - [Cypress plugin for code coverage](https://github.com/cypress-io/code-coverage)
- - [Cypress code coverage for applications created using create-react-app v3](https://www.cypress.io/blog/2019/09/05/cypress-code-coverage-for-create-react-app-v3/)
- - [Cypress module to instrument a CRA app](https://github.com/cypress-io/instrument-cra)
- - [Configuring NYC](https://github.com/istanbuljs/nyc#configuring-nyc)
+-   [SonarQube Analysis Parameters](https://docs.sonarqube.org/latest/analysis/analysis-parameters/)
+-   [SonarQube Test Coverage & Execution](https://docs.sonarqube.org/latest/analysis/coverage/)
+-   [NPM module to run SonarQube/SonarCloud analyses](https://github.com/bellingard/sonar-scanner-npm)
+-   [Cypress plugin for code coverage](https://github.com/cypress-io/code-coverage)
+-   [Cypress code coverage for applications created using create-react-app v3](https://www.cypress.io/blog/2019/09/05/cypress-code-coverage-for-create-react-app-v3/)
+-   [Cypress module to instrument a CRA app](https://github.com/cypress-io/instrument-cra)
+-   [Configuring NYC](https://github.com/istanbuljs/nyc#configuring-nyc)

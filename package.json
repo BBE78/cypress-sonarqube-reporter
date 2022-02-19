@@ -7,7 +7,7 @@
         "clean": "rimraf dist",
         "test": "npm run clean && jest --silent",
         "lint": "eslint --format json --output-file dist/reports/eslint-report.json src/** test/specs/**",
-        "lint-md": "remark *.md .github/**/*.md",
+        "lint-md": "remark *.md example/*.md .github/**/*.md",
         "sonar": "node sonar-project.js"
     },
     "repository": {
@@ -94,6 +94,9 @@
             "cypress/globals": true,
             "jest/globals": true,
             "node": true
+        },
+        "rules": {
+            "quotes": ["error", "single"]
         }
     },
     "remarkConfig": {
