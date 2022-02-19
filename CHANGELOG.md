@@ -5,16 +5,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [Next Release] - 2022-??-??
+
+### Added
+ - Added sample project demonstrating the reporter in React App with Cypress and SonarQube: [Request for improved documentation](https://github.com/BBE78/cypress-sonarqube-reporter/issues/20)
+
+### Changed
+ - None
+
+### Removed
+ - None
+
+### Fixed
+- None
+
+
 ## [v1.10.0] - 2022-02-06
 
 ### Added
-- Ability to merge all SonarQube XML reports into a single XML report, easier for SonarQube analysis configuration.
+ - Ability to merge all SonarQube XML reports into a single XML report, easier for SonarQube analysis configuration.
 
 ### Changed
-- None
+ - None
 
 ### Removed
-- None
+ - None
 
 ### Fixed
 - [Merging multiple report into one sonar.testExecutionReportPaths](https://github.com/BBE78/cypress-sonarqube-reporter/issues/5)
