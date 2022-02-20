@@ -18,7 +18,7 @@ jobs:
     name: Building [Node v${{ matrix.node-version }} & Cypress v${{ matrix.cypress-version }}]
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
       
       - name: Running Tests
         uses: actions/setup-node@v2
@@ -47,25 +47,28 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           artifact-name: Code Coverage Report
           coverage-files: ./dist/reports/coverage/lcov.info
-          
-      - name: Display Codacy API token
-        env:
-          MY_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
-        run: echo token=$MY_TOKEN
         
       - name: Run Codacy Coverage Reporter
-        run: echo 'LCOV report should be sent to Codacy...'
-        #uses: codacy/codacy-coverage-reporter-action@master
-        #with:
-        #  api-token: ${{ secrets.CODACY_API_TOKEN }}
-        #  coverage-reports: ./dist/reports/coverage/lcov.info
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          api-token: ${{ secrets.CODACY_API_TOKEN }}
+          coverage-reports: ./dist/reports/coverage/lcov.info
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      
+      - name: Running Tests
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: yarn --frozen-lockfile
+      - run: yarn test
+          
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
