@@ -20,7 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Running Tests
+      - name: Running tests
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
@@ -29,13 +29,20 @@ jobs:
       - run: yarn add cypress@${{ matrix.cypress-version }}
       - run: yarn test
 
-      - name: Upload Jest Test HTML Report
+      - name: Upload Jest tests HTML report
         uses: actions/upload-artifact@v2
         with:
           name: Tests HTML Report
           path: ./dist/reports/jest/jest-report.html
 
-      - name: Upload Test Coverage HTML Report
+      - name: Deploy Jest tests HTML report
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/reports/jest
+
+      - name: Upload tests coverage HTML report
         uses: actions/upload-artifact@v2
         with:
           name: Code Coverage HTML Report
