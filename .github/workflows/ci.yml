@@ -41,6 +41,13 @@ jobs:
           name: Code Coverage HTML Report
           path: ./dist/reports/coverage
 
+      - name: Deploy test coverage HTML report
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/reports/coverage
+
       - name: Report code coverage
         uses: zgosalvez/github-actions-report-lcov@v1
         with:
@@ -48,11 +55,12 @@ jobs:
           artifact-name: Code Coverage Report
           coverage-files: ./dist/reports/coverage/lcov.info
 
-      - name: Run Codacy Coverage Reporter
-        uses: codacy/codacy-coverage-reporter-action@master
-        with:
-          api-token: ${{ secrets.CODACY_API_TOKEN }}
-          coverage-reports: ./dist/reports/coverage/lcov.info
+      #- name: Run Codacy Coverage Reporter
+      #  uses: codacy/codacy-coverage-reporter-action@v1
+      #  with:
+      #    api-token: ${{ secrets.CODACY_API_TOKEN }}
+      #    coverage-reports: ./dist/reports/coverage/lcov.info
+
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
