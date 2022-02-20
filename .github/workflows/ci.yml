@@ -29,6 +29,22 @@ jobs:
       - run: yarn add cypress@${{ matrix.cypress-version }}
       - run: yarn test
 
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Running Tests
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: yarn --frozen-lockfile
+      - run: yarn test
+
       - name: Upload Jest tests HTML report
         uses: actions/upload-artifact@v2
         with:
@@ -37,7 +53,7 @@ jobs:
 
       - name: Deploy Jest tests HTML report
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/reports/jest
@@ -50,7 +66,7 @@ jobs:
 
       - name: Deploy test coverage HTML report
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/reports/coverage
@@ -67,22 +83,6 @@ jobs:
       #  with:
       #    api-token: ${{ secrets.CODACY_API_TOKEN }}
       #    coverage-reports: ./dist/reports/coverage/lcov.info
-
-  sonarcloud:
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-
-      - name: Running Tests
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      - run: yarn --frozen-lockfile
-      - run: yarn test
 
       - name: 'ESLint Checks'
         continue-on-error: true
