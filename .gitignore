@@ -62,7 +62,6 @@ typings/
 
 # SonarQube stuff
 .scannerwork
-sonar-project.properties
 
 # Generated stuff
 dist
