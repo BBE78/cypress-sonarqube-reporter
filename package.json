@@ -8,7 +8,7 @@
         "test": "npm run clean && jest --silent",
         "lint": "eslint --format json --output-file dist/reports/eslint-report.json src/** test/specs/**",
         "lint-md": "remark *.md example/*.md .github/**/*.md",
-        "sonar": "node sonar-project.js"
+        "sonar": "sonar-scanner -Dsonar.sourceEncoding=utf-8 -Dsonar.sources=src -Dsonar.tests=test -Dsonar.javascript.lcov.reportPaths=dist/reports/coverage/lcov.info -Dsonar.eslint.reportPaths=dist/reports/eslint-report.json"
     },
     "repository": {
         "type": "git",

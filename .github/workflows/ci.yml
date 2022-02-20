@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Running Tests
         uses: actions/setup-node@v2
         with:
@@ -28,26 +28,26 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn add cypress@${{ matrix.cypress-version }}
       - run: yarn test
-      
+
       - name: Upload Jest Test HTML Report
         uses: actions/upload-artifact@v2
         with:
           name: Tests HTML Report
           path: ./dist/reports/jest/jest-report.html
-      
+
       - name: Upload Test Coverage HTML Report
         uses: actions/upload-artifact@v2
         with:
           name: Code Coverage HTML Report
           path: ./dist/reports/coverage
-          
+
       - name: Report code coverage
         uses: zgosalvez/github-actions-report-lcov@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           artifact-name: Code Coverage Report
           coverage-files: ./dist/reports/coverage/lcov.info
-        
+
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@master
         with:
@@ -61,14 +61,21 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      
+
       - name: Running Tests
         uses: actions/setup-node@v2
         with:
           node-version: '16'
       - run: yarn --frozen-lockfile
       - run: yarn test
-          
+
+      - name: 'ESLint Checks'
+        continue-on-error: true
+        run: yarn lint
+
+      - name: 'Generating SonarQube project file'
+        run: node generateSonarProject.js
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

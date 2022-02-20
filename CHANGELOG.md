@@ -10,18 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   Added sample project demonstrating the reporter in React App with Cypress and SonarQube: [Request for improved documentation](https://github.com/BBE78/cypress-sonarqube-reporter/issues/20)
+-   SonarCloud analysis
 
 ### Changed
 
--   None
+-   Logo (white foreground)
 
 ### Removed
 
--   None
+-   Travis CI (useless since GitHub action workflows)
 
 ### Fixed
 
--   None
+-   Codacy issues
 
 ## \[v1.10.0] - 2022-02-06
 
