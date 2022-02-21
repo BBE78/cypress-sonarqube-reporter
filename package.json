@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "clean": "rimraf dist",
-        "test": "npm run clean && jest --silent",
+        "test": "yarn clean && jest --silent",
+        "test:c": "yarn test --coverage=true",
         "lint": "eslint --format json --output-file dist/reports/eslint-report.json src/** test/specs/**",
         "lint-md": "remark *.md example/*.md .github/**/*.md",
         "sonar": "sonar-scanner -Dsonar.sourceEncoding=utf-8 -Dsonar.sources=src -Dsonar.tests=test -Dsonar.javascript.lcov.reportPaths=dist/reports/coverage/lcov.info -Dsonar.eslint.reportPaths=dist/reports/eslint-report.json"
@@ -50,7 +51,6 @@
         "sonarqube-scanner": "^2.8.1"
     },
     "jest": {
-        "collectCoverage": true,
         "collectCoverageFrom": [
             "index.js",
             "mergeReports.js",

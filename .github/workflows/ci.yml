@@ -9,13 +9,13 @@ on:
 
 jobs:
   build:
+    name: Building [Node v${{ matrix.node-version }} & Cypress v${{ matrix.cypress-version }}]
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         cypress-version: [4.x, 5.x, 6.x, 7.x, 8.x, 9.x]
       fail-fast: false
-    name: Building [Node v${{ matrix.node-version }} & Cypress v${{ matrix.cypress-version }}]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
       - run: yarn test
 
   sonarcloud:
-    name: SonarCloud
+    name: Building (with Codacy & SonarCloud)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,7 +43,7 @@ jobs:
         with:
           node-version: '16'
       - run: yarn --frozen-lockfile
-      - run: yarn test
+      - run: yarn test:c
 
       - name: Upload Jest tests HTML report
         uses: actions/upload-artifact@v2
@@ -78,11 +78,11 @@ jobs:
           artifact-name: Code Coverage Report
           coverage-files: ./dist/reports/coverage/lcov.info
 
-      #- name: Run Codacy Coverage Reporter
-      #  uses: codacy/codacy-coverage-reporter-action@v1
-      #  with:
-      #    api-token: ${{ secrets.CODACY_API_TOKEN }}
-      #    coverage-reports: ./dist/reports/coverage/lcov.info
+      - name: Run Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          api-token: ${{ secrets.CODACY_API_TOKEN }}
+          coverage-reports: ./dist/reports/coverage/lcov.info
 
       - name: 'ESLint Checks'
         continue-on-error: true
