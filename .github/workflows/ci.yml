@@ -3,8 +3,7 @@ name: CI Build
 on:
   workflow_dispatch:
   push:
-    branches:
-      - master
+    branches: [master]
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -82,7 +81,7 @@ jobs:
       - name: Run Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          api-token: ${{ secrets.CODACY_API_TOKEN }}
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN  }}
           coverage-reports: ./dist/reports/coverage/lcov.info
 
       - name: 'ESLint Checks'
