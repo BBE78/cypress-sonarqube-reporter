@@ -4,7 +4,6 @@ const { resolve } = require('path');
 const rimraf = require('rimraf');
 
 const cypressDefaultConfig = require('./CypressDefaultConfig');
-const path = require('path');
 
 
 const createFile = (reportPath, content) => {
