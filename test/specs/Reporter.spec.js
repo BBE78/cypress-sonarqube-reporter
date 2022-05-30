@@ -267,4 +267,22 @@ describe('Testing reporter', () => {
         }, cypressRunTimeout);
     });
 
+    describe('with spec without specTitle', () => {
+
+        beforeAll(() => {
+            cleanOuputDir(path.resolve(testOuputDir, 'cypress'));
+        });
+
+        const config = cypressDefaultConfig;
+        config.config.testFiles = '**/SampleWithNoSpecTitle.spec.js';
+
+        test('running Cypress', () => {
+            return cypress.run(config).then(() => {
+                const reportPath = path.resolve(testOuputDir, 'cypress/integration/SampleWithNoSpecTitle.spec.js.xml');
+                verifyReport(reportPath, config, 'test/cypress/integration/SampleWithNoSpecTitle.spec.js');
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+    });
 });
