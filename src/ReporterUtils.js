@@ -37,13 +37,22 @@ const extractSpecFromSuite = (suite, options) => {
     const title = suite.title;
     const tag = '[@spec: ';
     const index = title.indexOf(tag);
+    let spec;
+
     if (index > -1) {
-        let spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
-        spec = options.useAbsoluteSpecPath ? spec.absolute : spec.relative;
-        return spec.replace(/\\/g, '/');
-    } else {
-        error(`could not find spec filename from title: ${title}`);
+        const absoluteOrRelativeSpec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
+        spec = options.useAbsoluteSpecPath ? absoluteOrRelativeSpec.absolute : absoluteOrRelativeSpec.relative;
+    } else if (suite.parent !== undefined && !!suite.parent.file) {
+        if (suite.invocationDetails !== undefined && !!suite.invocationDetails.absoluteFile) {
+            spec = options.useAbsoluteSpecPath ? suite.invocationDetails.absoluteFile : suite.parent.file;
+        }
     }
+
+    if(spec) {
+        return spec.replace(/\\/g, '/');
+    }
+
+    error(`could not find spec filename from title: ${title}`);
 };
 
 /**

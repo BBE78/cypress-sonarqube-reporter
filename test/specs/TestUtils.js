@@ -4,6 +4,7 @@ const { resolve } = require('path');
 const rimraf = require('rimraf');
 
 const cypressDefaultConfig = require('./CypressDefaultConfig');
+const path = require('path');
 
 
 const createFile = (reportPath, content) => {
@@ -31,7 +32,7 @@ const overwriteConfig = (config) => {
 };
 
 
-const verifyGeneratedReport = (reportPath, options) => {
+const verifyGeneratedReport = (reportPath, samplePath, options) => {
     const titleSeparator = (options && options.titleSeparator) ? options.titleSeparator : ' - ';
     const useFullTitle = (options && options.useFullTitle === false) ? false : true;
     const xml = fse.readFileSync(reportPath, { encoding: 'utf8' });
@@ -47,8 +48,8 @@ const verifyGeneratedReport = (reportPath, options) => {
     expect(json.testExecutions._version).toBe(1);
     expect(json.testExecutions.file).toBeDefined();
     expect(json.testExecutions.file._path).toBe((options && options.useAbsoluteSpecPath)
-        ? resolve('test/cypress/integration/Sample.spec.js').replace(/\\/g, '/')
-        : 'test/cypress/integration/Sample.spec.js');
+        ? resolve(samplePath).replace(/\\/g, '/')
+        : samplePath);
     expect(json.testExecutions.file.testCase).toBeDefined();
     expect(json.testExecutions.file.testCase).toBeArray();
     expect(json.testExecutions.file.testCase).toBeArrayOfSize(6);
@@ -117,9 +118,9 @@ const verifyGeneratedReport = (reportPath, options) => {
 };
 
 
-const verifyReport = (reportPath, config) => {
+const verifyReport = (reportPath, config, samplePath = 'test/cypress/integration/Sample.spec.js') => {
     verifyReportExists(reportPath);
-    verifyGeneratedReport(reportPath, config ? config.reporterOptions : undefined);
+    verifyGeneratedReport(reportPath, samplePath, config ? config.reporterOptions : undefined);
 };
 
 
