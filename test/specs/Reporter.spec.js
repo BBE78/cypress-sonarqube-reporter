@@ -260,7 +260,7 @@ describe('Testing reporter', () => {
             config.config.testFiles = '**/*.spec.js';
             return cypress.run(config).then(() => {
                 verifyReport(path.resolve(testDir, 'test/cypress/integration/Sample.spec.js.xml'), config);
-                verifyReport(path.resolve(testDir, 'test/cypress/integration/Another.spec.js.xml'), config, 'test/cypress/integration/Another.spec.js');
+                verifyReport(path.resolve(testDir, 'test/cypress/integration/SampleWithNoSpecTitle.spec.js.xml'), config, 'test/cypress/integration/SampleWithNoSpecTitle.spec.js');
             }).catch(err => {
                 throw err;
             });
