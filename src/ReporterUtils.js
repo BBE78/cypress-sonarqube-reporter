@@ -2,6 +2,7 @@ const chalk = require('chalk');
 const fse = require('fs-extra');
 const path = require('path');
 const pkg = require('../package.json');
+const {type} = require('mocha/lib/utils');
 
 
 /**
@@ -42,8 +43,8 @@ const extractSpecFromSuite = (suite, options) => {
     if (index > -1) {
         const absoluteOrRelativeSpec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
         spec = options.useAbsoluteSpecPath ? absoluteOrRelativeSpec.absolute : absoluteOrRelativeSpec.relative;
-    } else if (suite.parent !== undefined && !!suite.parent.file) {
-        if (suite.invocationDetails !== undefined && !!suite.invocationDetails.absoluteFile) {
+    } else if (typeof suite.parent !== 'undefined' && !!suite.parent.file) {
+        if (typeof suite.invocationDetails !== 'undefined' && !!suite.invocationDetails.absoluteFile) {
             spec = options.useAbsoluteSpecPath ? suite.invocationDetails.absoluteFile : suite.parent.file;
         }
     }
