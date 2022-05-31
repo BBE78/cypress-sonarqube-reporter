@@ -273,10 +273,10 @@ describe('Testing reporter', () => {
             cleanOuputDir(path.resolve(testOuputDir, 'cypress'));
         });
 
-        const config = cypressDefaultConfig;
-        config.config.testFiles = '**/SampleWithNoSpecTitle.spec.js';
 
         test('running Cypress', () => {
+            const config = overwriteConfig({});
+            config.config.testFiles = '**/SampleWithNoSpecTitle.spec.js';
             return cypress.run(config).then(() => {
                 const reportPath = path.resolve(testOuputDir, 'cypress/integration/SampleWithNoSpecTitle.spec.js.xml');
                 verifyReport(reportPath, config, 'test/cypress/integration/SampleWithNoSpecTitle.spec.js');
@@ -292,14 +292,14 @@ describe('Testing reporter', () => {
             cleanOuputDir(path.resolve(testOuputDir, 'cypress'));
         });
 
-        const config = overwriteConfig({
-            reporterOptions: {
-                useAbsoluteSpecPath: true
-            }
-        });
-        config.config.testFiles = '**/SampleWithNoSpecTitle.spec.js';
 
         test('running Cypress', () => {
+            const config = overwriteConfig({
+                reporterOptions: {
+                    useAbsoluteSpecPath: true
+                }
+            });
+            config.config.testFiles = '**/SampleWithNoSpecTitle.spec.js';
             return cypress.run(config).then(() => {
                 const reportPath = path.resolve(testOuputDir, 'cypress/integration/SampleWithNoSpecTitle.spec.js.xml');
                 verifyReport(reportPath, config, 'test/cypress/integration/SampleWithNoSpecTitle.spec.js');
