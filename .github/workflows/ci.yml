@@ -43,6 +43,7 @@ jobs:
         with:
           node-version: '16'
       - run: yarn
+      - run: yarn add cypress@9.x
       - run: yarn test:c
 
       - name: Upload Jest tests HTML report
