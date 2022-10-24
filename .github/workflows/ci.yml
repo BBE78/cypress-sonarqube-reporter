@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [12.x, 14.x, 16.x, 18.x]
         cypress-version: [4.x, 5.x, 6.x, 7.x, 8.x, 9.x]
       fail-fast: false
     steps:
