@@ -267,4 +267,31 @@ describe('Testing reporter', () => {
         }, cypressRunTimeout);
     });
 
+    describe('without specTitle()', () => {
+
+        const testDir = path.resolve(testOuputDir, 'withoutSpecTitle');
+        const reportPath = path.resolve(testDir, 'WithoutSpecTitle.spec.js.xml');
+
+        beforeAll(() => {
+            cleanOuputDir(testDir);
+        });
+
+        test('running Cypress', () => {
+            const config = overwriteConfig({
+                reporterOptions: {
+                    outputDir: testDir,
+                    overwrite: false,
+                    preserveSpecsDir: false
+                }
+            });
+            config.config.testFiles = '**/WithoutSpecTitle.spec.js';
+            return cypress.run(config).then(() => {
+                verifyReport(reportPath, config, 'WithoutSpecTitle.spec.js');
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+
+    });
+
 });

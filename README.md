@@ -44,10 +44,7 @@ Take a look at the Actions tests matrix results: tested with Node.js v\[12.x, 14
 
 The following Cypress/Mocha spec...
 ```js
-// File: cypress/integration/Sample.spec.js
-const specTitle = require("cypress-sonarqube-reporter/specTitle");
-
-describe(specTitle("The root suite"), () => {
+describe("The root suite", () => {
     it("Test case #1 (must pass)", () => {
         expect(true).to.be.true;
     });
@@ -170,7 +167,9 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 
 ### Spec files update
 
-The magic behind the scene is the use of `Cypress.spec` object (see [Cypress documentation](https://docs.cypress.io/api/cypress-api/spec.html#Syntax)) that is only available on spec files (ie not on reporter scope), so the drawback of this workaround is to use the function `specTitle(title: string)` from `specTitle.js` instead of the suite title:
+EDIT: since v1.11.0, this code snippet is useless. You could use the reporter without it.
+
+~~The magic behind the scene is the use of `Cypress.spec` object (see [Cypress documentation](https://docs.cypress.io/api/cypress-api/spec.html#Syntax)) that is only available on spec files (ie not on reporter scope), so the drawback of this workaround is to use the function `specTitle(title: string)` from `specTitle.js` instead of the suite title:~~
 ```js
 const specTitle = require('cypress-sonarqube-reporter/specTitle');
 
@@ -178,9 +177,9 @@ describe(specTitle('The root suite'), () => {
 	...
 });
 ```
-This `Cypress.spec` object is only available since Cypress v3.0.2 (see [Cypress changelog](https://docs.cypress.io/guides/references/changelog.html#3-0-2))
+~~This `Cypress.spec` object is only available since Cypress v3.0.2 (see [Cypress changelog](https://docs.cypress.io/guides/references/changelog.html#3-0-2))~~
 
-To avoid suite title pollution in other reporters (like the great [mochawesome](https://github.com/adamgruber/mochawesome#mochawesome)), make sure that `cypress-sonarqube-reporter` is the first one in the list.
+~~To avoid suite title pollution in other reporters (like the great [mochawesome](https://github.com/adamgruber/mochawesome#mochawesome)), make sure that `cypress-sonarqube-reporter` is the first one in the list.~~
 
 ### Merging reports into a single report
 

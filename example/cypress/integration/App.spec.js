@@ -1,9 +1,6 @@
 /// <reference types="cypress" />
 
-const specTitle = require('cypress-sonarqube-reporter/specTitle');
-
-
-describe(specTitle(('Test Suite #1')), () => {
+describe('Test Suite #1', () => {
 
     before(() => {
         cy.visit('/');

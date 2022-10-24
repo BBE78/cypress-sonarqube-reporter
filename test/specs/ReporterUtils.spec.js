@@ -263,7 +263,7 @@ describe('Testing ReporterUtils.js', () => {
                 // eslint-disable-next-line jest/no-try-expect
                 expect(data).toBe('should not be overwritten');
             }
-    });
+        });
 
     });
 
