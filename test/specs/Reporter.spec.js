@@ -15,6 +15,21 @@ const path = require('path');
 // Folder that will contains all generated files from tests
 const testOuputDir = path.resolve('dist', 'test');
 
+/**
+ * Indicates if Cypress depenency version is greater than the expected one
+ *
+ * @param {number} majorVersion
+ * @param {number} minorVersion
+ * @returns {boolean} true if Cypress version is greater than the expected
+ */
+const isCypressVersionAtLeast = (majorVersion, minorVersion = 0) => {
+    const cypressVersion = require('cypress/package.json').version;
+    const splitted = cypressVersion.split('.');
+    const cypressMajorVersion = parseInt(splitted[0]);
+    const cypressMinorVersion = parseInt(splitted[1]);
+    return (cypressMajorVersion >= majorVersion) && (cypressMinorVersion >= minorVersion);
+};
+
 
 describe('Testing reporter', () => {
 
@@ -235,14 +250,6 @@ describe('Testing reporter', () => {
 
     describe('with multiple spec files', () => {
 
-        const isCypressVersionAtLeast = (majorVersion, minorVersion) => {
-            const cypressVersion = require('cypress/package.json').version;
-            const splitted = cypressVersion.split('.');
-            const cypressMajorVersion = parseInt(splitted[0]);
-            const cypressMinorVersion = parseInt(splitted[1]);
-            return (cypressMajorVersion >= majorVersion) && (cypressMinorVersion >= minorVersion);
-        };
-
         const conditionalTest = isCypressVersionAtLeast(6, 2) ? test : test.skip;
         const testDir = path.resolve(testOuputDir, 'multi-specs');
 
@@ -265,6 +272,34 @@ describe('Testing reporter', () => {
                 throw err;
             });
         }, cypressRunTimeout);
+    });
+
+    describe('without specTitle()', () => {
+
+        const conditionalTest = isCypressVersionAtLeast(6, 2) ? test : test.skip;
+        const testDir = path.resolve(testOuputDir, 'withoutSpecTitle');
+        const reportPath = path.resolve(testDir, 'WithoutSpecTitle.spec.js.xml');
+
+        beforeAll(() => {
+            cleanOuputDir(testDir);
+        });
+
+        conditionalTest('running Cypress', () => {
+            const config = overwriteConfig({
+                reporterOptions: {
+                    outputDir: testDir,
+                    overwrite: false,
+                    preserveSpecsDir: false
+                }
+            });
+            config.config.testFiles = '**/WithoutSpecTitle.spec.js';
+            return cypress.run(config).then(() => {
+                verifyReport(reportPath, config, 'WithoutSpecTitle.spec.js');
+            }).catch(err => {
+                throw err;
+            });
+        }, cypressRunTimeout);
+
     });
 
 });

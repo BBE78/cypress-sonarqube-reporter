@@ -42,8 +42,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - run: yarn --frozen-lockfile
-      - run: yarn add cypress
+      - run: yarn
+      - run: yarn add cypress@9.x
       - run: yarn test:c
 
       - name: Upload Jest tests HTML report

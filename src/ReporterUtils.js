@@ -7,7 +7,7 @@ const pkg = require('../package.json');
 /**
  * Log 'info' message to the console
  *
- * @param {string} message
+ * @param {string} message the info message to log
  */
 const info = (message) => {
     // eslint-disable-next-line no-console
@@ -15,11 +15,11 @@ const info = (message) => {
 };
 
 /**
- * Log 'error' message to the console
+ * Log 'error' message to the console, and throw an Error
  *
- * @param {string} message
+ * @param {string} message the error message
  */
-const error = (message) => {
+const throwError = (message) => {
     // eslint-disable-next-line no-console
     console.error(`[${chalk.red(pkg.name)}] ${message}`);
     throw new Error(message);
@@ -37,13 +37,16 @@ const extractSpecFromSuite = (suite, options) => {
     const title = suite.title;
     const tag = '[@spec: ';
     const index = title.indexOf(tag);
+    let spec;
     if (index > -1) {
-        let spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
+        spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
         spec = options.useAbsoluteSpecPath ? spec.absolute : spec.relative;
-        return spec.replace(/\\/g, '/');
+    } else if (suite.invocationDetails) {
+        spec = options.useAbsoluteSpecPath ? suite.invocationDetails.absoluteFile : suite.invocationDetails.relativeFile;
     } else {
-        error(`could not find spec filename from title: ${title}`);
+        throwError(`could not find spec filename from title: ${title} or from 'suite.invocationDetails'`);
     }
+    return spec.replace(/\\/g, '/');
 };
 
 /**
@@ -124,7 +127,7 @@ const formatTest = (node, test, options) => {
             // nothing to do...
             break;
         default:
-            error(`unknown test state: ${test.state}`);
+            throwError(`unknown test state: ${test.state}`);
     }
 };
 
@@ -137,14 +140,13 @@ const writeFile = (specFilename, data, options) => {
     const specFilePath = (options.preserveSpecsDir) ? specFilename : path.basename(specFilename);
     const file = path.resolve(options.outputDir, path.dirname(specFilePath), `${options.prefix}${path.basename(specFilePath)}.xml`);
     if (!options.overwrite && fse.existsSync(file)) {
-        error(`the reporter '${file}' already exists`);
+        throwError(`the reporter '${file}' already exists`);
     } else {
         try {
             fse.outputFileSync(file, data, 'utf8');
             info(`report saved to '${file}'`);
         } catch(err) {
-            error(`could not write file '${file}': ${err}`);
-            throw err;
+            throwError(`could not write file '${file}': ${err}`);
         }
     }
 };
