@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## \[Next Release] - 2022-??-??
+## \[v1.11.0] - 2022-10-24
 
 ### Added
 
@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+-   ``specTitle`` is now useless
 -   Logo (white foreground)
 
 ### Removed
@@ -22,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+-   [Suite title is polluted with spec file info in cypress runner if specTitle is used in describe hook](https://github.com/BBE78/cypress-sonarqube-reporter/issues/31)
+-   [Cypress should be a peer dependency](https://github.com/BBE78/cypress-sonarqube-reporter/issues/27)
 -   Codacy issues
 
 ## \[v1.10.0] - 2022-02-06
