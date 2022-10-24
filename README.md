@@ -167,7 +167,7 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 
 ### Spec files update
 
-EDIT: since v1.11.0, this code snippet is useless. You could use the reporter without it.
+EDIT: since v1.11.0, this code snippet is useless if you're using Cypress v6+.
 
 ~~The magic behind the scene is the use of `Cypress.spec` object (see [Cypress documentation](https://docs.cypress.io/api/cypress-api/spec.html#Syntax)) that is only available on spec files (ie not on reporter scope), so the drawback of this workaround is to use the function `specTitle(title: string)` from `specTitle.js` instead of the suite title:~~
 ```js
