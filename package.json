@@ -50,7 +50,7 @@
         "sonarqube-scanner": "^2.8.1"
     },
     "peerDependencies": {
-        "cypress": "^9.4.1 || ^10"
+        "cypress": "^9.4.1 || ^10 || ^11"
     },
     "jest": {
         "collectCoverageFrom": [
