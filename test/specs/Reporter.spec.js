@@ -22,7 +22,7 @@ const testOuputDir = path.resolve('dist', 'test');
  * @param {number} minorVersion
  * @returns {boolean} true if Cypress version is greater than the expected
  */
-const isCypressVersionAtLeast = (majorVersion, minorVersion = 0) => {
+ const isCypressVersionAtLeast = (majorVersion, minorVersion = 0) => {
     const cypressVersion = require('cypress/package.json').version;
     const splitted = cypressVersion.split('.');
     const cypressMajorVersion = parseInt(splitted[0]);
@@ -30,7 +30,11 @@ const isCypressVersionAtLeast = (majorVersion, minorVersion = 0) => {
     return (cypressMajorVersion >= majorVersion) && (cypressMinorVersion >= minorVersion);
 };
 
-const cypressDefaultConfig = isCypressVersionAtLeast(10)
+const isCypressVersionGreaterThanV10 = () => {
+    return isCypressVersionAtLeast(10);
+};
+
+const cypressDefaultConfig = isCypressVersionGreaterThanV10()
     ? require('./Cypressv10DefaultConfig')
     : require('./CypressDefaultConfig');
 
@@ -279,9 +283,13 @@ describe('Testing reporter', () => {
                     preserveSpecsDir: false
                 }
             });
-            config.spec = '**/WithoutSpecTitle.spec.js';
+            if (isCypressVersionGreaterThanV10()) {
+                config.spec = '**/WithoutSpecTitle.spec.js';
+            } else {
+                config.config.testFiles = '**/WithoutSpecTitle.spec.js';
+            }
             return cypress.run(config).then(() => {
-                verifyReport(reportPath, config, 'WithoutSpecTitle.spec.js', isCypressVersionAtLeast(10));
+                verifyReport(reportPath, config, 'WithoutSpecTitle.spec.js', isCypressVersionGreaterThanV10());
             });
         }, cypressRunTimeout);
 
