@@ -1,7 +1,6 @@
 
 module.exports = {
     quiet: true,
-    configFile: false,
     config: {
         integrationFolder: 'test/cypress/integration',
         fixturesFolder: 'test/cypress/fixtures',
