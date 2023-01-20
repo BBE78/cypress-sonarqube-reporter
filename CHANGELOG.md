@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## \[v1.12.0] - 2023-01-20
+
+### Added
+
+-   Added Cypress >= v10 support (mainly tests env.)
+
+### Changed
+
+-   None
+
+### Removed
+
+-   Support of Node.js v12
+
+### Fixed
+
+-   [Add Cypress v10.x support](https://github.com/BBE78/cypress-sonarqube-reporter/issues/37)
+
 ## \[v1.11.0] - 2022-10-24
 
 ### Added
