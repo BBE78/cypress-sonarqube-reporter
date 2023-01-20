@@ -36,7 +36,7 @@ Other existing Mocha SonarQube reporters:
 
 ## Tested with Cypress
 
-Take a look at the Actions tests matrix results: tested with Node.js v\[12.x, 14.x, 16.x] and Cypress v\[4.x, 5.x, 6.x, 7.x, 8.x, 9.x]
+Take a look at the Actions tests matrix results: tested with Node.js v\[~~12.x~~, 14.x, 16.x, 18.x, 19.x] and Cypress v\[4.x, 5.x, 6.x, 7.x, 8.x, 9.x, 10.x, 11.x, 12.x]
 
 [![Cypress Compatibility](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml/badge.svg)](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml)
 
@@ -136,6 +136,21 @@ In Node.js environnement, use your favorite command:
 ### As a single Cypress reporter
 
 As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/reporters#Reporter-Options), single configuration:
+
+With Cypress version >= v10.x
+```javascript
+// File: cypress.config.js
+const { defineConfig } = require('cypress')
+
+module.exports = defineConfig({
+	reporter: 'cypress-sonarqube-reporter',
+	reporterOptions: {
+    	// see "Reporter Options" section
+	}
+});
+```
+
+With Cypress version < v10.x
 ```json
 // File: cypress.json
 {
@@ -149,6 +164,7 @@ As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/r
 ### Using Cypress multiple reporters plugin
 
 As described in [Cypress documentation](https://docs.cypress.io/guides/tooling/reporters#Multiple-reporters), multi configuration:
+
 ```json
 // File: cypress.json
 {

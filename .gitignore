@@ -69,3 +69,4 @@ dist
 # Cypress generated stuff
 cypress/screenshots
 cypress/videos
+cypress.json
