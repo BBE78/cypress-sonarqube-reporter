@@ -1,6 +1,7 @@
 /* eslint jest/expect-expect: ['error', { 'assertFunctionNames': ['expect', 'verifyReport', 'verifyReportExists'] }] */
 
 const cypress = require('cypress');
+const fs = require('fs');
 const path = require('path');
 
 const {
@@ -42,6 +43,22 @@ describe('Testing reporter', () => {
 
     // Running Cypress could sometimes take a long time...
     const cypressRunTimeout = 90000;
+
+    /**
+     * The "cypress.json" could not exist with "cypress.config.js" with Cypress >= v10.
+     * So be compatible with all Cypress versions, the "cypress.json" is created "on the fly" during the tests
+     */
+    beforeAll(() => {
+        if (!isCypressVersionGreaterThanV10() && !fs.existsSync('cypress.json')) {
+            return fs.promises.writeFile('cypress.json', '{}');
+        }
+    });
+
+    afterAll(() => {
+        if (fs.existsSync('cypress.json')) {
+            return fs.promises.unlink('cypress.json');
+        }
+    });
 
     describe('with default options', () => {
 
