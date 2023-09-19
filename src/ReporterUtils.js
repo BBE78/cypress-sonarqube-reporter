@@ -27,6 +27,7 @@ const throwError = (message) => {
 
 /**
  * Extract the spec file path from the suite.
+ * May ignore the options.useAbsoluteSpecPath if the requested is not available.
  * Raise an error if the spec could not be extracted.
  *
  * @param {object} suite the Mocha suite
@@ -41,8 +42,10 @@ const extractSpecFromSuite = (suite, options) => {
     if (index > -1) {
         spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
         spec = options.useAbsoluteSpecPath ? spec.absolute : spec.relative;
-    } else if (suite.invocationDetails) {
+    } else if (suite.invocationDetails && (suite.invocationDetails.absoluteFile || suite.invocationDetails.relativeFile)) {
         spec = options.useAbsoluteSpecPath ? suite.invocationDetails.absoluteFile : suite.invocationDetails.relativeFile;
+    } else if (suite.parent && suite.parent.file) {
+        spec = suite.parent.file;
     } else {
         throwError(`could not find spec filename from title: ${title} or from 'suite.invocationDetails'`);
     }
