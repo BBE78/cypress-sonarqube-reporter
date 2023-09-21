@@ -42,9 +42,9 @@ const extractSpecFromSuite = (suite, options) => {
     if (index > -1) {
         spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
         spec = options.useAbsoluteSpecPath ? spec.absolute : spec.relative;
-    } else if (suite.invocationDetails && (suite.invocationDetails.absoluteFile || suite.invocationDetails.relativeFile)) {
+    } else if (suite.invocationDetails?.absoluteFile || suite.invocationDetails?.relativeFile) {
         spec = options.useAbsoluteSpecPath ? suite.invocationDetails.absoluteFile : suite.invocationDetails.relativeFile;
-    } else if (suite.parent && suite.parent.file) {
+    } else if (suite.parent?.file) {
         spec = suite.parent.file;
     } else {
         throwError(`could not find spec filename from title: ${title} or from 'suite.invocationDetails'`);
