@@ -104,6 +104,15 @@ describe('Testing ReporterUtils.js', () => {
             expect(result).toBe('/builds/group/project/test/Sample.spec.js');
         });
 
+        it('with file only in parent', () => {
+            const result = extractSpecFromSuite({
+                parent: {
+                    file: 'test/Sample.spec.js'
+                }
+            }, {});
+            expect(result).toBe('test/Sample.spec.js');
+        });
+
         it('with spec in title', () => {
             expect(() => {
                 extractSpecFromSuite({
