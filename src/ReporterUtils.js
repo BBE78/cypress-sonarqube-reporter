@@ -37,7 +37,7 @@ const throwError = (message) => {
 const extractSpecFromSuite = (suite, options) => {
     const title = suite.title;
     const tag = '[@spec: ';
-    const index = title.indexOf(tag);
+    const index = title?.indexOf(tag);
     let spec;
     if (index > -1) {
         spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
