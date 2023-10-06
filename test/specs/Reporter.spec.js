@@ -312,4 +312,32 @@ describe('Testing reporter', () => {
 
     });
 
+    describe('component test', () => {
+
+        const conditionalTest = isCypressVersionAtLeast(11, 0) ? test : test.skip;
+        const testDir = path.resolve(testOuputDir, 'component');
+        const reportPath = path.resolve(testDir, 'MyComponent.spec.js.xml');
+
+        beforeAll(() => {
+            cleanOuputDir(testDir);
+        });
+
+        conditionalTest('running Cypress', () => {
+            const config = overwriteConfig(cypressDefaultConfig, {
+                testingType: 'component',
+                reporterOptions: {
+                    outputDir: testDir,
+                    overwrite: false,
+                    preserveSpecsDir: false
+                },
+            });
+            config.spec= '**/MyComponent.spec.js';
+
+            return cypress.run(config).then(() => {
+                verifyReport(reportPath, config, 'MyComponent.spec.js', true, true);
+            });
+        }, cypressRunTimeout);
+
+    });
+
 });

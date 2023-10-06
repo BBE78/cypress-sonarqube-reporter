@@ -11,5 +11,19 @@ module.exports = defineConfig({
         trashAssetsBeforeRuns: false,
         video: false,
         videosFolder: 'dist/cypress/videos'
-    }
+    },
+
+    component: {
+        devServer: {
+            framework: 'react',
+            bundler: 'webpack',
+            webpackConfig: {},
+        },
+        supportFile: false,
+        indexHtmlFile: './test/cypress/support/component-index.html',
+        specPattern: './test/cypress/component/**/*.spec.{js,jsx,ts,tsx}',
+        trashAssetsBeforeRuns: false,
+        video: false,
+        videosFolder: 'dist/cypress/videos'
+    },
 });

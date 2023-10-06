@@ -29,8 +29,8 @@ const verifyReportExists = (reportPath) => {
 };
 
 
-const verifyGeneratedReport = (reportPath, options, specFileName = 'Sample.spec.js', cypressVersionGreaterThan10 = false) => {
-    const titleSeparator = (options && options.titleSeparator) ? options.titleSeparator : ' - ';
+const verifyGeneratedReport = (reportPath, options, specFileName = 'Sample.spec.js', cypressVersionGreaterThan10 = false, isComponentTest = false) => {
+    const titleSeparator = options?.titleSeparator ?? ' - ';
     const useFullTitle = (options && options.useFullTitle === false) ? false : true;
     const xml = fse.readFileSync(reportPath, { encoding: 'utf8' });
     const json = parser.parse(xml, {
@@ -44,11 +44,14 @@ const verifyGeneratedReport = (reportPath, options, specFileName = 'Sample.spec.
     expect(json.testExecutions).toBeDefined();
     expect(json.testExecutions._version).toBe(1);
     expect(json.testExecutions.file).toBeDefined();
-    expect(json.testExecutions.file._path).toBe((options && options.useAbsoluteSpecPath)
-        ? resolve(`test/cypress/integration/${specFileName}`).replace(/\\/g, '/')   // force path separator to unix style for better
-        : cypressVersionGreaterThan10
-            ? `../cypress/integration/${specFileName}`
-            : `test/cypress/integration/${specFileName}`);
+    expect(json.testExecutions.file._path).toBe(
+        isComponentTest
+            ? `test/cypress/component/${specFileName}`
+            : (options?.useAbsoluteSpecPath
+                ? resolve(`test/cypress/integration/${specFileName}`).replace(/\\/g, '/')   // force path separator to unix style for better readability
+                : cypressVersionGreaterThan10
+                    ? `../cypress/integration/${specFileName}`
+                    : `test/cypress/integration/${specFileName}`));
     expect(json.testExecutions.file.testCase).toBeDefined();
     expect(json.testExecutions.file.testCase).toBeArray();
     expect(json.testExecutions.file.testCase).toBeArrayOfSize(6);
@@ -117,9 +120,9 @@ const verifyGeneratedReport = (reportPath, options, specFileName = 'Sample.spec.
 };
 
 
-const verifyReport = (reportPath, config, specFileName, cypressVersionGreaterThan10 = false) => {
+const verifyReport = (reportPath, config, specFileName, cypressVersionGreaterThan10 = false, isComponentTest = false) => {
     verifyReportExists(reportPath);
-    verifyGeneratedReport(reportPath, config ? config.reporterOptions : undefined, specFileName, cypressVersionGreaterThan10);
+    verifyGeneratedReport(reportPath, config ? config.reporterOptions : undefined, specFileName, cypressVersionGreaterThan10, isComponentTest);
 };
 
 
