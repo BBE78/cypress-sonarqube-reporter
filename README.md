@@ -40,6 +40,10 @@ Take a look at the Actions tests matrix results: tested with Node.js v\[~~12.x~~
 
 [![Cypress Compatibility](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml/badge.svg)](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml)
 
+### Compatibility with Cypress Component Testing
+
+With the integration of the recent changes in #47, the reporter now supports Cypress component testing. Users can leverage the functionalities of `cypress-sonarqube-reporter` for both end-to-end tests and component tests conducted through Cypress.
+
 ## Example
 
 The following Cypress/Mocha spec...
