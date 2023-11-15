@@ -15,6 +15,16 @@ const info = (message) => {
 };
 
 /**
+ * Log 'warn' message to the console
+ *
+ * @param {string} message the warn message to log
+ */
+const warn = (message) => {
+    // eslint-disable-next-line no-console
+    console.info(`[${chalk.yellow(pkg.name)}] ${message}`);
+};
+
+/**
  * Log 'error' message to the console, and throw an Error
  *
  * @param {string} message the error message
@@ -163,5 +173,6 @@ module.exports = {
     formatTestTitle,
     formatSuiteTitle,
     info,
+    warn,
     writeFile
 };
