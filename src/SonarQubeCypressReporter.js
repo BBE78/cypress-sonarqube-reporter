@@ -7,6 +7,7 @@ const {
     formatTest,
     writeFile
 } = require('./ReporterUtils');
+const ReporterUtils = require('./ReporterUtils');
 
 
 // Mocha runner events
@@ -40,6 +41,7 @@ class SonarQubeCypressReporter {
     constructor(runner, options) {
         this.options = Object.assign(defaultOptions, options.reporterOptions);
         this.specFilename = 'none';
+        this.totalTestCount = 0;
 
         runner.once(EVENT_RUN_END, () => {
             this.onDone(runner);
@@ -56,6 +58,10 @@ class SonarQubeCypressReporter {
             .attribute('version', 1)
             .element('file');
         this.traverseSuite(node, runner.suite);
+        if (this.totalTestCount === 0) {
+            ReporterUtils.warn('Test suite is empty, not writing XML File')
+            return;
+        }
         const xml = node.end({ pretty: true });
         writeFile(this.specFilename, xml, this.options);
     }
@@ -67,7 +73,7 @@ class SonarQubeCypressReporter {
      * @param {object} suite a Mocha suite
      */
     traverseSuite(node, suite) {
-
+        this.totalTestCount += suite.tests.length;
         if (suite.parent && suite.parent.root) {
             this.specFilename = extractSpecFromSuite(suite, { useAbsoluteSpecPath: false });
             const specFilePath = extractSpecFromSuite(suite, this.options);

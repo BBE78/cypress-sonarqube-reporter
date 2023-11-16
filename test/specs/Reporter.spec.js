@@ -10,7 +10,8 @@ const {
     overwriteConfig,
     readFile,
     verifyReportExists,
-    verifyReport
+    verifyReport,
+    verifyReportDoesNotExist
 } = require('./TestUtils');
 
 // Folder that will contains all generated files from tests
@@ -23,7 +24,7 @@ const testOuputDir = path.resolve('dist', 'test');
  * @param {number} minorVersion
  * @returns {boolean} true if Cypress version is greater than the expected
  */
- const isCypressVersionAtLeast = (majorVersion, minorVersion = 0) => {
+const isCypressVersionAtLeast = (majorVersion, minorVersion = 0) => {
     const cypressVersion = require('cypress/package.json').version;
     const splitted = cypressVersion.split('.');
     const cypressMajorVersion = parseInt(splitted[0]);
@@ -312,6 +313,38 @@ describe('Testing reporter', () => {
 
     });
 
+    describe('empty test', () => {
+
+        const conditionalTest = isCypressVersionAtLeast(6, 2) ? test : test.skip;
+        const testDir = path.resolve(testOuputDir, 'empty');
+        const reportPath = path.resolve(testDir, 'Empty.spec.js.xml');
+        const nonePath = path.resolve(testDir, 'none.xml');
+
+        beforeAll(() => {
+            cleanOuputDir(testDir);
+        });
+
+        conditionalTest('running Cypress', () => {
+            const config = overwriteConfig(cypressDefaultConfig, {
+                reporterOptions: {
+                    outputDir: testDir,
+                    overwrite: false,
+                    preserveSpecsDir: false
+                }
+            });
+            if (isCypressVersionGreaterThanV10()) {
+                config.spec = '**/Empty.spec.js';
+            } else {
+                config.config.testFiles = '**/Empty.spec.js';
+            }
+            return cypress.run(config).then(() => {
+                verifyReportDoesNotExist(reportPath);
+                verifyReportDoesNotExist(nonePath);
+            });
+        }, cypressRunTimeout);
+
+    });
+
     describe('component test', () => {
 
         const conditionalTest = isCypressVersionAtLeast(11, 0) ? test : test.skip;
@@ -331,12 +364,42 @@ describe('Testing reporter', () => {
                     preserveSpecsDir: false
                 },
             });
-            config.spec= '**/MyComponent.spec.js';
+            config.spec = '**/MyComponent.spec.js';
 
             return cypress.run(config).then(() => {
                 verifyReport(reportPath, config, 'MyComponent.spec.js', true, true);
             });
         }, cypressRunTimeout);
+
+    });
+
+    describe('empty component test', () => {
+
+        const conditionalTest = isCypressVersionAtLeast(11, 0) ? test : test.skip;
+        const testDir = path.resolve(testOuputDir, 'MyEmptyComponent');
+        const reportPath = path.resolve(testDir, 'MyEmptyComponent.spec.js.xml');
+        const nonePath = path.resolve(testDir, 'none.xml');
+
+        beforeAll(() => {
+            cleanOuputDir(testDir);
+        });
+
+        conditionalTest('running Cypress', () => {
+            const config = overwriteConfig(cypressDefaultConfig, {
+                testingType: 'component',
+                reporterOptions: {
+                    outputDir: testDir,
+                    overwrite: false,
+                    preserveSpecsDir: false
+                },
+            });
+            config.spec = '**/MyEmptyComponent.spec.js';
+
+            return cypress.run(config).then(() => {
+                verifyReportDoesNotExist(reportPath);
+                verifyReportDoesNotExist(nonePath);
+            });
+        });
 
     });
 
