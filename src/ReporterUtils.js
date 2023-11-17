@@ -21,7 +21,7 @@ const info = (message) => {
  */
 const warn = (message) => {
     // eslint-disable-next-line no-console
-    console.info(`[${chalk.yellow(pkg.name)}] ${message}`);
+    console.warn(`[${chalk.yellow(pkg.name)}] ${message}`);
 };
 
 /**

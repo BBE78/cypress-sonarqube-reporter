@@ -313,7 +313,7 @@ describe('Testing reporter', () => {
 
     });
 
-    describe('empty test', () => {
+    describe('empty suite', () => {
 
         const conditionalTest = isCypressVersionAtLeast(6, 2) ? test : test.skip;
         const testDir = path.resolve(testOuputDir, 'empty');
@@ -373,7 +373,7 @@ describe('Testing reporter', () => {
 
     });
 
-    describe('empty component test', () => {
+    describe('empty component suite', () => {
 
         const conditionalTest = isCypressVersionAtLeast(11, 0) ? test : test.skip;
         const testDir = path.resolve(testOuputDir, 'MyEmptyComponent');

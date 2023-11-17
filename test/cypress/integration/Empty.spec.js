@@ -1,5 +1,3 @@
-const specTitle = require("../../../specTitle");
-
-describe(specTitle("Empty suite"), () => {
+describe("An empty root suite", () => {
 
 });
