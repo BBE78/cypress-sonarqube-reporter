@@ -28,6 +28,10 @@ const verifyReportExists = (reportPath) => {
     expect(fse.existsSync(reportPath)).toBeTruthy();
 };
 
+const verifyReportDoesNotExist = (reportPath) => {
+    expect(fse.existsSync(reportPath)).toBeFalsy();
+};
+
 
 const verifyGeneratedReport = (reportPath, options, specFileName = 'Sample.spec.js', cypressVersionGreaterThan10 = false, isComponentTest = false) => {
     const titleSeparator = options?.titleSeparator ?? ' - ';
@@ -132,6 +136,7 @@ module.exports = {
     overwriteConfig,
     readFile,
     verifyReportExists,
+    verifyReportDoesNotExist,
     verifyGeneratedReport,
     verifyReport
 };
