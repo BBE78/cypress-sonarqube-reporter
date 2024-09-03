@@ -1,6 +1,6 @@
 const fse = require('fs-extra');
-const parser = require('fast-xml-parser');
-const XMLParser = require('fast-xml-parser').j2xParser;
+const { XMLParser} = require('fast-xml-parser');
+const parser = new XMLParser();
 const path = require('path');
 const readdirp = require('readdirp');
 const {
