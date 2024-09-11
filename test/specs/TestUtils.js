@@ -1,5 +1,5 @@
 const fse = require('fs-extra');
-const parser = require('fast-xml-parser');
+const { XMLParser } = require('fast-xml-parser');
 const { resolve } = require('path');
 const rimraf = require('rimraf');
 
@@ -33,12 +33,12 @@ const verifyGeneratedReport = (reportPath, options, specFileName = 'Sample.spec.
     const titleSeparator = options?.titleSeparator ?? ' - ';
     const useFullTitle = (options && options.useFullTitle === false) ? false : true;
     const xml = fse.readFileSync(reportPath, { encoding: 'utf8' });
-    const json = parser.parse(xml, {
+    const json = new XMLParser({
         ignoreAttributes: false,
         parseAttributeValue: true,
         attributeNamePrefix: '_',
         textNodeName: 'text'
-    });
+    }).parse(xml);
 
     expect(json).toBeDefined();
     expect(json.testExecutions).toBeDefined();

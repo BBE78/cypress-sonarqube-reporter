@@ -1,6 +1,5 @@
 const fse = require('fs-extra');
 const { XMLParser} = require('fast-xml-parser');
-const parser = new XMLParser();
 const path = require('path');
 const readdirp = require('readdirp');
 const {
@@ -88,7 +87,7 @@ const loadReport = (reportPath) => {
             if (err) {
                 reject(err);
             } else {
-                const json = parser.parse(xml, XML_PARSER_OPTIONS);
+                const json = new XMLParser(XML_PARSER_OPTIONS).parse(xml);
                 resolve(json);
             }
         });
