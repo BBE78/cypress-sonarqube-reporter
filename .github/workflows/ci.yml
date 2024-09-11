@@ -47,7 +47,7 @@ jobs:
       - run: yarn test:c
 
       - name: Upload Jest tests HTML report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Tests HTML Report
           path: ./dist/reports/jest/jest-report.html
@@ -60,7 +60,7 @@ jobs:
           publish_dir: ./dist/reports/jest
 
       - name: Upload tests coverage HTML report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: Code Coverage HTML Report
           path: ./dist/reports/coverage
