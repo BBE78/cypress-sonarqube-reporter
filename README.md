@@ -38,6 +38,7 @@ Other existing Mocha SonarQube reporters:
 
 Take a look at the Actions tests matrix results: tested with Node.js v\[~~12.x~~, ~~14.x~~, 16.x, 18.x, 20.x] and Cypress v\[4.x, 5.x, 6.x, 7.x, 8.x, 9.x, 10.x, 11.x, 12.x, 13.x]
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/eeffd02103fb4b15b8569f66a8e62b56)](https://app.codacy.com/gh/BBE78/cypress-sonarqube-reporter?utm_source=github.com&utm_medium=referral&utm_content=BBE78/cypress-sonarqube-reporter&utm_campaign=Badge_Grade)
 [![Cypress Compatibility](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml/badge.svg)](https://github.com/BBE78/cypress-sonarqube-reporter/actions/workflows/ci.yml)
 
 ### Compatibility with Cypress Component Testing
