@@ -25,7 +25,20 @@ const overwriteConfig = (defaultConfig, config) => {
 
 
 const verifyReportExists = (reportPath) => {
-    expect(fse.existsSync(reportPath)).toBeTruthy();
+    try {
+        expect(fse.existsSync(reportPath)).toBeTrue();
+    } catch (err) {
+        throw new Error(`file '${reportPath}' should exist`);
+    }
+};
+
+
+const verifyReportNotExists = (reportPath) => {
+    try {
+        expect(fse.existsSync(reportPath)).toBeFalse();
+    } catch (err) {
+        throw new Error(`file '${reportPath}' should not exist`);
+    }
 };
 
 
@@ -132,6 +145,7 @@ module.exports = {
     overwriteConfig,
     readFile,
     verifyReportExists,
+    verifyReportNotExists,
     verifyGeneratedReport,
     verifyReport
 };
