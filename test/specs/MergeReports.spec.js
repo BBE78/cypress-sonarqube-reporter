@@ -1,4 +1,5 @@
 const fse = require('fs-extra');
+const path = require('path');
 const mergeReports = require('../../mergeReports');
 
 const DEFAULT_MERGED_REPORT_FILENAME = 'cypress-sonarqube-reports.all.xml';
@@ -10,6 +11,15 @@ const copyTestData = () => {
     if (!fse.existsSync(REPORTS_DIR)) {
         fse.copySync('test/data', REPORTS_DIR);
     }
+};
+
+
+const checkXmlContent = (fileName, parentDir = REPORTS_DIR) => {
+    const filePath = path.resolve(parentDir, fileName);
+    expect(fse.existsSync(filePath)).toBeTrue();
+    const content = fse.readFileSync(filePath, 'utf-8').trim();
+    expect(content).toStartWith('<?xml version=');
+    expect(content).toEndWith('</testExecutions>');
 };
 
 
@@ -46,28 +56,34 @@ describe('Testing mergeReports.js', () => {
         beforeAll(copyTestData);
 
         test('with Cypress outputDir', () => {
-            return expect(mergeReports({
+            return mergeReports({
                 config: {
                     reporterOptions: {
                         outputDir: REPORTS_DIR
                     }
                 }
-            })).resolves.toMatch(DEFAULT_MERGED_REPORT_FILENAME);
+            }).then((result) => {
+                expect(result).toMatch(DEFAULT_MERGED_REPORT_FILENAME);
+                checkXmlContent(result);
+            });
         });
 
         test('with Cypress mergeOutputDir', () => {
-            return expect(mergeReports({
+            return mergeReports({
                 config: {
                     reporterOptions: {
                         outputDir: REPORTS_DIR,
                         mergeOutputDir: 'dist/test/merge'
                     }
                 }
-            })).resolves.toMatch('merge');
+            }).then((result) => {
+                expect(result).toMatch('merge');
+                checkXmlContent(DEFAULT_MERGED_REPORT_FILENAME, 'dist/test/merge');
+            });
         });
 
         test('with Cypress mergeFileName', () => {
-            return expect(mergeReports({
+            return mergeReports({
                 config: {
                     reporterOptions: {
                         outputDir: REPORTS_DIR,
@@ -75,7 +91,10 @@ describe('Testing mergeReports.js', () => {
                         mergeFileName: 'another.xml'
                     }
                 }
-            })).resolves.toMatch('another.xml');
+            }).then((result) => {
+                expect(result).toMatch('another.xml');
+                checkXmlContent(result, 'dist/test/merge');
+            });
         });
 
         test('with Cypress outputDir, but empty', () => {
@@ -97,7 +116,7 @@ describe('Testing mergeReports.js', () => {
         beforeAll(copyTestData);
 
         test('with reportsOutputDir', () => {
-            return expect(mergeReports({
+            return mergeReports({
                 config: {
                     reporterOptions: {
                         outputDir: 'fake'
@@ -105,11 +124,14 @@ describe('Testing mergeReports.js', () => {
                 }
             }, {
                 reportsOutputDir: REPORTS_DIR
-            })).resolves.toMatch(DEFAULT_MERGED_REPORT_FILENAME);
+            }).then((result) => {
+                expect(result).toMatch(DEFAULT_MERGED_REPORT_FILENAME);
+                checkXmlContent(result);
+            });
         });
 
         test('with mergeOutputDir', () => {
-            return expect(mergeReports({
+            return mergeReports({
                 config: {
                     reporterOptions: {
                         outputDir: REPORTS_DIR,
@@ -117,12 +139,15 @@ describe('Testing mergeReports.js', () => {
                     }
                 }
             }, {
-                mergeOutputDir: 'dist/test/merge-options'
-            })).resolves.toMatch('merge-options');
+                mergeOutputDir: 'dist/test/merge-another'
+            }).then((result) => {
+                expect(result).toMatch('merge-another');
+                checkXmlContent(DEFAULT_MERGED_REPORT_FILENAME, 'dist/test/merge-another');
+            });
         });
 
         test('with mergeFileName', () => {
-            return expect(mergeReports({
+            return mergeReports({
                 config: {
                     reporterOptions: {
                         outputDir: REPORTS_DIR,
@@ -131,7 +156,10 @@ describe('Testing mergeReports.js', () => {
                 }
             }, {
                 mergeFileName: 'another-options.xml'
-            })).resolves.toMatch('another-options.xml');
+            }).then((result) => {
+                expect(result).toMatch('another-options.xml');
+                checkXmlContent(result);
+            });
         });
 
     });

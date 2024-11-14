@@ -1,5 +1,5 @@
 const fse = require('fs-extra');
-const { XMLParser} = require('fast-xml-parser');
+const { XMLParser, XMLBuilder } = require('fast-xml-parser');
 const path = require('path');
 const readdirp = require('readdirp');
 const {
@@ -51,8 +51,7 @@ const optionalChaining = (data, ...props) => {
  * @returns {Promise} with the merged report path
  */
 const writeMergedReport = (outputPath, mergedReportAsJSON) => {
-    const xmlParser = new XMLParser(XML_PARSER_OPTIONS);
-    const xml = xmlParser.parse(mergedReportAsJSON);
+    const xml = new XMLBuilder(XML_PARSER_OPTIONS).build(mergedReportAsJSON);
     const content = `<?xml version="1.0" encoding="utf-8"?>\n${xml}`;
     return new Promise((resolve, reject) => {
         const parentPath = path.dirname(outputPath);
