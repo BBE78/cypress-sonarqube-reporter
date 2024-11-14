@@ -10,7 +10,8 @@ const {
     overwriteConfig,
     readFile,
     verifyReportExists,
-    verifyReport
+    verifyReport,
+    verifyReportNotExists
 } = require('./TestUtils');
 
 // Folder that will contains all generated files from tests
@@ -307,6 +308,37 @@ describe('Testing reporter', () => {
             }
             return cypress.run(config).then(() => {
                 verifyReport(reportPath, config, 'WithoutSpecTitle.spec.js', isCypressVersionGreaterThanV10());
+            });
+        }, cypressRunTimeout);
+
+    });
+
+    describe('with empty suite', () => {
+
+        const testDir = path.resolve(testOuputDir, 'withEmptySuite');
+        const reportPath = path.resolve(testDir, 'EmptySuite.spec.js.xml');
+
+        beforeAll(() => {
+            cleanOuputDir(testDir);
+        });
+
+        test('running Cypress', () => {
+            const config = overwriteConfig(cypressDefaultConfig, {
+                reporterOptions: {
+                    outputDir: testDir,
+                    overwrite: false,
+                    preserveSpecsDir: false
+                }
+            });
+            if (isCypressVersionGreaterThanV10()) {
+                config.spec = '**/EmptySuite.spec.js';
+            } else {
+                config.config.testFiles = '**/EmptySuite.spec.js';
+            }
+            return cypress.run(config).then(() => {
+                verifyReportNotExists(reportPath);
+                verifyReportNotExists(path.resolve(testDir, 'none.xml'));
+                verifyReportNotExists(testDir);
             });
         }, cypressRunTimeout);
 
