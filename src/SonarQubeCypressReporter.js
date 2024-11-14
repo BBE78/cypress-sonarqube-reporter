@@ -5,7 +5,8 @@ const {
     extractSpecFromSuite,
     extractTitleFromSuite,
     formatTest,
-    writeFile
+    writeFile,
+    warn
 } = require('./ReporterUtils');
 
 
@@ -52,12 +53,16 @@ class SonarQubeCypressReporter {
      * @param {object} runner the Mocha runner
      */
     onDone(runner) {
-        const node = xmlbuilder.create('testExecutions', { encoding: 'utf-8' })
-            .attribute('version', 1)
-            .element('file');
-        this.traverseSuite(node, runner.suite);
-        const xml = node.end({ pretty: true });
-        writeFile(this.specFilename, xml, this.options);
+        if ((runner.suite.tests?.length > 0) || (runner.suite.suites?.length > 0)) {
+            const node = xmlbuilder.create('testExecutions', { encoding: 'utf-8' })
+                .attribute('version', 1)
+                .element('file');
+            this.traverseSuite(node, runner.suite);
+            const xml = node.end({ pretty: true });
+            writeFile(this.specFilename, xml, this.options);
+        } else {
+            warn('empty suite detected, skipping SonarQube report generation');
+        }
     }
 
     /**
@@ -67,7 +72,6 @@ class SonarQubeCypressReporter {
      * @param {object} suite a Mocha suite
      */
     traverseSuite(node, suite) {
-
         if (suite.parent && suite.parent.root) {
             this.specFilename = extractSpecFromSuite(suite, { useAbsoluteSpecPath: false });
             const specFilePath = extractSpecFromSuite(suite, this.options);
