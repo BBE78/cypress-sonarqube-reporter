@@ -40,7 +40,7 @@ const optionalChaining = (data, ...props) => {
     } catch (err) {
         return undefined;
     }
-}
+};
 
 
 /**
