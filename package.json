@@ -1,6 +1,6 @@
 {
     "name": "cypress-sonarqube-reporter",
-    "version": "1.13.2",
+    "version": "1.13.3",
     "description": "A SonarQube XML reporter for Cypress",
     "main": "index.js",
     "scripts": {
