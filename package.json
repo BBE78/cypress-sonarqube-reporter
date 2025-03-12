@@ -1,6 +1,6 @@
 {
     "name": "cypress-sonarqube-reporter",
-    "version": "1.13.4",
+    "version": "1.13.5",
     "description": "A SonarQube XML reporter for Cypress",
     "main": "index.js",
     "scripts": {
@@ -50,7 +50,7 @@
         "sonarqube-scanner": "^2.8.1"
     },
     "peerDependencies": {
-        "cypress": "^4 || ^5 || ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || ^13"
+        "cypress": "^9 || ^10 || ^11 || ^12 || ^13 || ^14"
     },
     "jest": {
         "collectCoverageFrom": [
