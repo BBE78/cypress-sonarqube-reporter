@@ -244,6 +244,7 @@ module.exports = (on, config) => {
 | `useFullTitle`        | `boolean` | `true`                                | specify if test case should combine all parent suite(s) name(s) before the test title or only the test title |
 | `titleSeparator`      | `string`  | `" - "`                               | the separator used between combined parent suite(s) name(s); only used if `useFullTitle` is `true` |
 | `useAbsoluteSpecPath` | `boolean` | `false`                               | specify if the absolute path of a spec file should be written to the report |
+| `preferFileProp`      | `boolean` | `false`                               | specify if the `file` property of the test suite should be used instead of the `invocationDetails` |
 | `mergeOutputDir`      | `string`  | `<none>`                              | folder name for the merged SonarQube XML report, will be automatically created if not exist. If not specified, `outputDir` is used |
 | `mergeFileName`       | `string`  | `"cypress-sonarqube-reports.all.xml"` | merged SonarQube XML report name |
 
