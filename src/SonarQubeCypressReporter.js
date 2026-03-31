@@ -23,7 +23,8 @@ const defaultOptions = {
     prefix: '',
     useFullTitle: true,
     titleSeparator: ' - ',
-    useAbsoluteSpecPath: false
+    useAbsoluteSpecPath: false,
+    preferFileProp: false
 };
 
 

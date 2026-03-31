@@ -52,6 +52,8 @@ const extractSpecFromSuite = (suite, options) => {
     if (index > -1) {
         spec = JSON.parse(title.substring(index + tag.length, title.lastIndexOf(']')));
         spec = options.useAbsoluteSpecPath ? spec.absolute : spec.relative;
+    } else if (suite.file && options.preferFileProp) {
+        spec = suite.file;
     } else if (suite.invocationDetails?.absoluteFile || suite.invocationDetails?.relativeFile) {
         spec = options.useAbsoluteSpecPath ? suite.invocationDetails.absoluteFile : suite.invocationDetails.relativeFile;
     } else if (suite.parent?.file) {
